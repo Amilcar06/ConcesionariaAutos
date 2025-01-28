@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración - AutosPrime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body class="font-roboto bg-gray-100">
+  <!-- Encabezado -->
+  <header class="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md">
+    <div class="flex items-center">
+      <img src="{{ url_for('static', filename='recursos/logo.jpeg') }}" alt="Logo" class="mr-4 h-12 w-12" />
+      <h1 class="text-2xl font-bold">Panel de Administración</h1>
+    </div>
+    <div class="flex items-center">
+      <p class="mr-4">
+        Administrador: {{ session.get('user_fullname', 'Desconocido') }}
+      </p>
+      <a href="{{ url_for('auth.logout') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Cerrar Sesión
+      </a>
+    </div>    
+  </header>
+  <div class="flex">
+    <!-- Menú de Navegación Lateral -->
+    <nav class="w-64 bg-white shadow-md h-screen overflow-y-auto p-4">
+      <ul>
+        <!-- Dashboard -->
+        <li>
+          <a href="/admin-dashboard" class="flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2">
+            <i class="fas fa-tachometer-alt mr-2"></i>
+            Dashboard
+          </a>
+        </li>
+    
+        <!-- Gestión de Vehículos -->
+        <li>
+          <button
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="vehiculos-menu"
+          >
+            <span><i class="fas fa-car mr-2"></i>Gestión de Vehículos</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="vehiculos-menu" class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/vehiculo/gestion-vehiculos" class="text-gray-700 hover:text-gray-900">Ver Vehiculos</a></li>
+            <li><a href="/admin-dashboard/vehiculo/agregar-vehiculo" class="text-gray-700 hover:text-gray-900">Agregar Vehículo</a></li>
+            <li><a href="{{ url_for('auth.admin_seguimiento_vehiculo') }}" class="text-gray-700 hover:text-gray-900">Seguimiento Vehículo</a></li>
+          </ul>
+        </li>
+
+        <!-- Gestión de Empleados -->
+        <li>
+          <button
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="empleados-menu"
+          >
+            <span><i class="fas fa-car mr-2"></i>Gestión de Empleados</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="empleados-menu" class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/empleados" class="text-gray-700 hover:text-gray-900">Ver Empleados</a></li>
+            <li><a href="/admin-dashboard/empleado/create" class="text-gray-700 hover:text-gray-900">Agregar Empleado</a></li>
+          </ul>
+        </li>
+        
+        <!-- Gestión de Seguros -->
+        <li>
+          <button 
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="seguros-menu"
+          >
+            <span><i class="fas fa-users mr-2"></i>Gestión de Seguros</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="seguros-menu" class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/seg" class="text-gray-700 hover:text-gray-900">Ver Seguros</a></li>
+            <li><a href="/admin-dashboard/seg/create/seguro" class="text-gray-700 hover:text-gray-900">Agregar Seguro</a></li>
+            <li><a href="/admin-dashboard/aseg" class="text-gray-700 hover:text-gray-900">Ver Aseguradoras</a></li>
+            <li><a href="/admin-dashboard/aseg/create/aseguradora" class="text-gray-700 hover:text-gray-900">Agregar Aseguradora</a></li>
+          </ul>
+        </li>
+    
+        <!-- Gestión de Clientes -->
+        <li>
+          <button 
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="clientes-menu"
+          >
+            <span><i class="fas fa-users mr-2"></i>Gestión de Clientes</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="clientes-menu" class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/clientes" class="text-gray-700 hover:text-gray-900">Ver Clientes</a></li>
+            <li><a href="/admin-dashboard/cliente/add" class="text-gray-700 hover:text-gray-900">Agregar Nuevo Cliente</a></li>
+          </ul>
+        </li>
+    
+        <!-- Gestión de Ingresos -->
+        <li>
+          <button 
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="ingresos-menu"
+          >
+            <span><i class="fas fa-chart-line mr-2"></i>Gestión de Ingresos</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="ingresos-menu"class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/ingresos" class="text-gray-700 hover:text-gray-900">Ver Transaccion</a></li>
+            <li><a href="{{ url_for('auth.registrar_transaccion_view') }}" class="text-gray-700 hover:text-gray-900">Agregar Transacción</a></li>
+            <li><a href="{{ url_for('auth.registrar_tipo_cambio_view') }}" class="text-gray-700 hover:text-gray-900">Registrar Tipo de Cambio</a></li>
+          </ul>
+        </li>
+    
+        <!-- Gestión de Reportes -->
+        <li>
+          <button 
+            class="flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-semibold py-2 focus:outline-none"
+            aria-expanded="false"
+            aria-controls="reportes-menu"
+            >
+            <span><i class="fas fa-chart-line mr-2"></i>Gestión de Reportes</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="reportes-menu" class="ml-6 mt-2 hidden space-y-2">
+            <li><a href="/admin-dashboard/reporte/reporte_1" class="text-gray-700 hover:text-gray-900">Reporte de Vehículos Disponibles</a></li>
+            <li><a href="/admin-dashboard/reporte/reporte_2" class="text-gray-700 hover:text-gray-900">Reporte de Clientes Registrados</a></li>
+            <li><a href="/admin-dashboard/reporte/reporte_5" class="text-gray-700 hover:text-gray-900">Reporte detallado de Mantenimiento </a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>    
+    <div class="flex-1 p-6">{% block content %}{% endblock %}</div>
+  </div>
+
+  <footer class="bg-gray-800 text-white p-4 text-center">
+    <p>© 2023 AutosPrime. Todos los derechos reservados.</p>
+    <p>
+      <a href="#" class="text-blue-400 hover:text-blue-600">Política de Privacidad</a> |
+      <a href="#" class="text-blue-400 hover:text-blue-600">Términos y Condiciones</a>
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleButtons = document.querySelectorAll("button[aria-expanded]");
+      toggleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const expanded = button.getAttribute("aria-expanded") === "true" || false;
+          button.setAttribute("aria-expanded", !expanded);
+          const menu = button.nextElementSibling;
+          menu.classList.toggle("hidden");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

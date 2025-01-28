@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestionar disponibilidad</h1>
+    
+    <a href="{{url_for('est_vehiculo.create_estado_vehiculo')}}" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">Crear estado</a>
+    <a href="{{ url_for('vehiculo.get_vehiculos') }}" class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 ">Volver</a>
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID Vehículo</th>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID estado</th>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Modelo</th>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Estado Vehículo</th>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Descripción del estado</th>
+                        <th class="py-3 px-4 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for vehiculo in vehiculos %}
+                    <tr class="text-center">
+                        <td class="py-4 px-4 whitespace-nowrap text-sm text-gray-700">{{ vehiculo[0].id_vehiculo }}</td>
+                        <td class="py-4 px-4 whitespace-nowrap text-sm text-gray-700">{{ vehiculo[1].id_estado_vehiculo }}</td>
+                        <td class="py-4 px-4 whitespace-nowrap text-sm text-gray-700">{{ vehiculo[0].modelo }}</td>
+                        <td class="py-4 px-4 whitespace-nowrap text-sm text-gray-700">{{ vehiculo[1].nombre_estado }}</td>
+                        <td class="py-4 px-4 whitespace-nowrap text-sm text-gray-700">{{ vehiculo[1].descripcion }}</td>
+                        <td class="py-4 px-4 whitespace-nowrap">
+                            <a href="{{url_for('est_vehiculo.edit',id=vehiculo[1].id_estado_vehiculo)}}" class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Editar estado</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

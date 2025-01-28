@@ -2,19 +2,24 @@ from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from views import seguro_view
 from models.seguro_models import Seguro
+from models.vehiculo_models import Vehiculo
+from models.aseguradora_models import Aseguradora
 
 seguro_bp = Blueprint('seguro', __name__)
 seguro_model = Seguro()  # Create an instance of Seguro
 
 @seguro_bp.route('/seg')
-def seguros():
+def admin_seguros():
     seguros = seguro_model.find_all()
-    return seguro_view.seguros(seguros)
+    return seguro_view.seguros_view(seguros)
 
 @seguro_bp.route('/seg/create/seguro', methods=['GET', 'POST'])
-def create():
+def admin_create():
+
     if request.method == 'GET':
-        return seguro_view.create()
+        vehiculos = Vehiculo.find_all_ids()
+        aseguradoras = Aseguradora.find_all_ids()
+        return seguro_view.create_view(vehiculos, aseguradoras)
     
     id_seguro = request.form['id_seguro']
     id_vehiculo = request.form['id_vehiculo']
@@ -29,19 +34,20 @@ def create():
 
     seguro_model.create_seguro(id_seguro, id_vehiculo, id_aseguradora, fecha_inicio_str, fecha_fin_str, tipo_seguro, costo)
 
-    return redirect(url_for('seguro.seguros'))
+    return redirect(url_for('seguro.admin_seguros'))
 
 
 @seguro_bp.route('/seg/update/<int:id>', methods=["GET", "POST"])
-def update(id):
+def admin_update(id):
     if request.method == "GET":
         seguro = seguro_model.find_by(id)
+        vehiculos = Vehiculo.find_all_ids()
+        aseguradoras = Aseguradora.find_all_ids()
         if seguro is None:
-            #flash('No existe un seguro con ese id', 'error')
-            return redirect(url_for('seguro.seguros'))
-        return seguro_view.update_seguro(seguro=seguro)
+            return redirect(url_for('seguro.admin_seguros'))
+        return seguro_view.update_seguro_view(seguro=seguro, vehiculos=vehiculos, aseguradoras=aseguradoras)
     
-    # Collect updated form data
+    # Recoleccion de la informacion
     id_vehiculo = request.form['id_vehiculo']
     id_aseguradora = request.form['id_aseguradora']
     fecha_inicio = request.form['fecha_inicio']
@@ -51,35 +57,34 @@ def update(id):
 
     fecha_inicio_str = datetime.strptime(fecha_inicio, '%Y-%m-%d').date()
     fecha_fin_str = datetime.strptime(fecha_fin, '%Y-%m-%d').date()
-    # Update the seguro
+    # Update del seguro
     seguro_model.update_seguro(id, id_vehiculo, id_aseguradora, fecha_inicio_str, fecha_fin_str, tipo_seguro, costo)
     flash('Seguro actualizado exitosamente!', 'success')
-
-    return redirect(url_for('seguro.seguros'))
+    return redirect(url_for('seguro.admin_seguros'))
 
 @seguro_bp.route('/seg/delete/<int:id>')
-def delete_seguro(id):
+def admin_delete_seguro(id):
     seguro = seguro_model.find_by(id)
     if seguro is None:
         flash('No existe un seguro con ese id', 'error')
     else:
         seguro_model.delete_seguro(id)
-
-    return redirect(url_for('seguro.seguros'))
+    return redirect(url_for('seguro.admin_seguros'))
 
 @seguro_bp.route('/seg/<int:id>')
-def seguro(id):
+def admin_seguro(id):
     seguro = seguro_model.find_by(id)
     if seguro is None:
-        return redirect(url_for('seguro.seguros'))
-    return seguro_view.seguro(seguro=seguro)
+        return redirect(url_for('seguro.admin_seguros'))
+    return seguro_view.seguro_view(seguro=seguro)
 
 @seguro_bp.route('/rep/vencidos', methods=['GET'])
-def seg_vencido():
+def admin_seg_vencido():
     seguros = seguro_model.seguros_vencidos()
-    return seguro_view.seguros_vencidos(seguros)
+    return seguro_view.seguros_vencidos_view(seguros)
 
 @seguro_bp.route('/rep/activos', methods=['GET'])
-def seg_activo():
+def admin_seg_activo():
     seguros = seguro_model.seguros_activos()
-    return seguro_view.seguros_activos(seguros)
+    return seguro_view.seguros_activos_view(seguros)
+

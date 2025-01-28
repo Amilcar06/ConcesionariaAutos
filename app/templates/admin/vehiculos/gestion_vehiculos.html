@@ -1,0 +1,135 @@
+{% extends '/admin/base_admin.html' %} 
+{% block content %}
+
+<div class="container mx-auto mt-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Lista de Vehículos</h1>
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              ID Vehículo
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Año
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Modelo
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Precio Diario
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Precio en Dólares
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Características
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Estado Vehículo
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Marca
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Imagen
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Combustible
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Kilometraje
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {% for vehiculo in vehiculos %}
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.id_vehiculo }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.anio }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.modelo }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.precio_diario }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.precio_dolar }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.caracteristicas }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.id_estado_vehiculo }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.id_marca }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.imagen_url }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.combustible }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ vehiculo.kilometraje }}
+            </td>
+            <td>
+              <a
+                href="{{url_for('auth.admin_get_vehiculo', id=vehiculo.id_vehiculo)}}"
+                class="text-blue-600 hover:text-blue-900 font-semibold px-2 py-1 rounded"
+                >Ver</a
+              >
+              <a
+                href="{{url_for('auth.admin_edit_vehiculo', id=vehiculo.id_vehiculo)}}"
+                class="text-yellow-600 hover:text-yellow-900 font-semibold px-2 py-1 rounded"
+                >Editar</a
+              >
+              <a
+                href="{{url_for('auth.admin_edit_vehiculo', id=vehiculo.id_vehiculo)}}"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded"
+                onclick="return confirm('¿Estás seguro de que deseas eliminar este vehículo?');"
+                >Eliminar</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

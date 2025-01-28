@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% block content %}
+<main class="container mx-auto px-4 py-8">
+  <!-- Encabezado -->
+  <section class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">Alquiler de Autos</h1>
+    <p class="text-lg">
+      Alquila el auto perfecto para tus necesidades, ya sea para un viaje corto
+      o una ocasión especial.
+    </p>
+  </section>
+  <!-- Proceso de Alquiler -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Proceso de Alquiler</h2>
+    <ol class="list-decimal list-inside">
+      <li>
+        <strong> Selecciona tu vehículo: </strong>
+        Explora nuestra flota y elige el auto que deseas.
+      </li>
+      <li>
+        <strong> Completa el formulario de reserva: </strong>
+        Proporciona tus datos y elige las fechas.
+      </li>
+      <li>
+        <strong> Confirma tu reserva: </strong>
+        Recibe una confirmación por correo electrónico.
+      </li>
+      <li>
+        <strong> Recoge tu vehículo: </strong>
+        Ven a nuestra concesionaria y disfruta de tu alquiler.
+      </li>
+    </ol>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+      onclick="window.location.href='/inventario'"
+    >
+      Reservar Ahora
+    </button>
+  </section>
+  <!-- Tarifas y Políticas de Alquiler -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Tarifas y Políticas de Alquiler</h2>
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">Tarifas</h3>
+      <p>
+        Tarifas diarias y semanales disponibles. Depósito de seguridad
+        requerido. Políticas de combustible: lleno a lleno.
+      </p>
+      <h3 class="text-xl font-bold mb-2 mt-4">Requisitos</h3>
+      <p>Edad mínima y licencia de conducir válida son necesarias.</p>
+      <a
+        class="text-blue-500 hover:underline mt-4 inline-block"
+        href="/politicas-alquiler"
+      >
+        Ver Políticas Completas de Alquiler
+      </a>
+    </div>
+  </section>
+  <!-- Promociones y Descuentos -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Promociones y Descuentos</h2>
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">
+        Descuento en Alquileres Prolongados
+      </h3>
+      <p>Alquila por 7 días y obtén un 10% de descuento.</p>
+    </div>
+  </section>
+  <!-- Preguntas Frecuentes (FAQ) -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Preguntas Frecuentes (FAQ)</h2>
+    <div class="space-y-4">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">
+          ¿Qué documentos necesito para alquilar un auto?
+        </h3>
+        <p>Necesitas una identificación válida y una tarjeta de crédito.</p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">¿Puedo cancelar mi reserva?</h3>
+        <p>
+          Sí, puedes cancelar tu reserva con al menos 24 horas de antelación.
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">
+          ¿Qué sucede si tengo un accidente con el vehículo alquilado?
+        </h3>
+        <p>
+          Debes contactar a nuestra concesionaria y a tu compañía de seguros
+          inmediatamente.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Testimonios de Clientes -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Testimonios de Clientes</h2>
+    <div class="space-y-4">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "El proceso de alquiler fue rápido y sencillo. El auto estaba en
+          perfectas condiciones." - Juan Pérez
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "Excelente servicio y precios competitivos. Definitivamente volveré a
+          alquilar aquí." - María López
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "El auto de lujo que alquilé fue perfecto para mi evento especial. Muy
+          recomendable." - Carlos García
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center mb-8">Detalles del Vehículo</h1>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <img alt="Imagen del vehículo" class="w-full h-64 object-cover mb-4" src="{{ url_for('static', filename='images/' ~ vehiculo.imagen_url ~ '.webp') }}" />
+            <h2 class="text-2xl font-bold mb-2">{{ vehiculo.marca }} {{ vehiculo.modelo }} {{ vehiculo.anio }}</h2>
+            <p class="text-lg text-blue-500 font-bold mb-2">${{ vehiculo.precio_diario }}</p>
+            <p class="text-gray-700 mb-2">Características: {{ vehiculo.caracteristicas }}</p>
+            <p class="text-gray-700 mb-2">Combustible: {{ vehiculo.combustible }}</p>
+            <p class="text-gray-700 mb-2">Kilometraje: {{ vehiculo.kilometraje }} km</p>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Estado Vehículo</h3>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <p class="font-bold">Estado Vehículo:</p>
+                <p>{{ estado_vehiculo.nombre_estado }}</p>
+                <p class="font-bold">Descripción:</p>
+                <p>{{ estado_vehiculo.descripcion }}</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Marca</h3>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <p class="font-bold">Nombre Marca:</p>
+                <p>{{ marca.nombre_marca }}</p>
+                <p class="font-bold">Descripción:</p>
+                <p>{{ marca.descripcion }}</p>
+                <p class="font-bold">País de Origen:</p>
+                <p>{{ marca.pais_marca }}</p>
+            </div>
+        </div>
+        <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block mt-4" 
+            href="{{ url_for('header.formulario_compra', id_vehiculo=vehiculo.id_vehiculo) }}">
+            Comprar
+        </a>
+    </div>
+</section>
+{% endblock %}

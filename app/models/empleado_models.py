@@ -1,4 +1,5 @@
 from database import db
+import bcrypt
 db_conecction = db()
 
 class EmpleadoPersona:
@@ -12,11 +13,11 @@ class EmpleadoPersona:
                 SELECT e.idEmpleado, p.nombre, p.paterno, p.materno, e.email, e.ci, e.comisionES
                 FROM EMPLEADO e
                 JOIN PERSONA p ON e.idPersona = p.idPersona
-                WHERE LOWER(p.nombre) LIKE '%' || LOWER(:nombre) || '%'
-                   OR LOWER(p.paterno) LIKE '%' || LOWER(:nombre) || '%'
-                   OR LOWER(p.materno) LIKE '%' || LOWER(:nombre) || '%'
+                WHERE LOWER(p.nombre) LIKE CONCAT('%', LOWER(%(nombre)s), '%')
+                   OR LOWER(p.paterno) LIKE CONCAT('%', LOWER(%(nombre)s), '%')
+                   OR LOWER(p.materno) LIKE CONCAT('%', LOWER(%(nombre)s), '%')
                 """
-                cursor.execute(query, nombre=nombre)
+                cursor.execute(query, {'nombre': nombre})
                 empleados = cursor.fetchall()
             return empleados
         except Exception as e:
@@ -30,21 +31,16 @@ class EmpleadoPersona:
         connection = db()
         try:
             with connection.cursor() as cursor:
-
                 print("Datos recibidos para crear persona:", nombre, paterno, materno, direccion, telefono, email, fecha_nac)
                 
                 cursor.execute(
                     """
-                    INSERT INTO PERSONA (idPersona, nombre, paterno, materno, direccion, telefono, email, fecha_nacimiento)
-                    VALUES (persona_seq.nextval, :1, :2, :3, :4, :5, :6, :7)
-                    """,(nombre, paterno, materno, direccion, telefono, email, fecha_nac),
+                    INSERT INTO PERSONA (nombre, paterno, materno, direccion, telefono, email, fecha_nacimiento)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    """, (nombre, paterno, materno, direccion, telefono, email, fecha_nac),
                 )
-                 # Recupera el último ID generado
-                cursor.execute("SELECT persona_seq.currval FROM dual")
-                id_persona = cursor.fetchone()[0]  # Obtiene el valor de la secuencia actual
-
+                id_persona = cursor.lastrowid  # Obtiene el último ID insertado
                 connection.commit()
-                # Devuelve el ID de persona generado
                 return id_persona
         except Exception as e:
             print("Error al crear persona:", e)
@@ -57,20 +53,14 @@ class EmpleadoPersona:
         connection = db()
         try:
             with connection.cursor() as cursor:
-
                 cursor.execute(
                     """
-                    INSERT INTO EMPLEADO (idEmpleado, idPersona, email, ci, comisionES)
-                    VALUES (empleado_seq.nextval, :1, :2, :3, :4)
-                    """,(id_persona, email, ci, comisionES)
+                    INSERT INTO EMPLEADO (idPersona, email, ci, comisionES)
+                    VALUES (%s, %s, %s, %s)
+                    """, (id_persona, email, ci, comisionES)
                 )
-                # Recupera el último ID generado
-                cursor.execute("SELECT empleado_seq.currval FROM dual")
-                id_empleado = cursor.fetchone()[0]  # Obtiene el valor de la secuencia actual
-
+                id_empleado = cursor.lastrowid  # Obtiene el último ID insertado
                 connection.commit()
-                
-                # Devuelve el ID de empleado generado
                 return id_empleado
         except Exception as e:
             print("Error al crear empleado:", e)
@@ -80,17 +70,19 @@ class EmpleadoPersona:
 
     @staticmethod
     def create_usuario(id_empleado, nombreUsuario, contrasena, rolUsuario):
+        hashed_contrasena = bcrypt.hashpw(contrasena.encode('utf-8'), bcrypt.gensalt())
         connection = db()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    INSERT INTO USUARIO (idUsuario, idEmpleado, nombreUsuario, contrasena, rolUsuario)
-                    VALUES (usuario_seq.nextval, :1, :2, :3, :4)
+                    INSERT INTO USUARIO (idEmpleado, nombreUsuario, contrasena, rolUsuario)
+                    VALUES (%s, %s, %s, %s)
                     """,
-                    (id_empleado, nombreUsuario, contrasena, rolUsuario)
+                    (id_empleado, nombreUsuario, hashed_contrasena.decode('utf-8'), rolUsuario)
                 )
                 connection.commit()
+                print("Usuario creado con éxito")
         except Exception as e:
             print("Error al crear usuario:", e)
         finally:
@@ -98,11 +90,17 @@ class EmpleadoPersona:
     
     @staticmethod
     def find_all():
-        cursor = db_conecction.cursor()
-        cursor.execute("SELECT * FROM EMPLEADO")
-        empleados = cursor.fetchall()
-        cursor.close()
-        return empleados
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM EMPLEADO")
+                empleados = cursor.fetchall()
+                return empleados
+        except Exception as e:
+            print("Error al obtener empleados:", e)
+            return []
+        finally:
+            connection.close()
     
     @staticmethod
     def find_by(id):
@@ -113,7 +111,7 @@ class EmpleadoPersona:
                     """
                     SELECT 
                         e.idEmpleado,
-                        p.nombre || ' ' || p.paterno || ' ' || p.materno AS nombre_completo,
+                        CONCAT(p.nombre, ' ', p.paterno, ' ', p.materno) AS nombre_completo,
                         p.direccion,
                         p.telefono,
                         p.email,
@@ -122,8 +120,8 @@ class EmpleadoPersona:
                         u.rolUsuario AS rol
                     FROM EMPLEADO e
                     JOIN PERSONA p ON e.idPersona = p.idPersona
-                    JOIN usuario u ON e.idEmpleado = u.idEmpleado
-                    WHERE e.idEmpleado = :id
+                    JOIN USUARIO u ON e.idEmpleado = u.idEmpleado
+                    WHERE e.idEmpleado = %(id)s
                     """, {"id": id}
                 )
                 empleado = cursor.fetchone()
@@ -140,16 +138,14 @@ class EmpleadoPersona:
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    """
-                    SELECT * FROM EMPLEADO WHERE idEmpleado = :id
-                    """, {":id": id_empleado}
+                    "SELECT * FROM EMPLEADO WHERE idEmpleado = %(id_empleado)s",
+                    {'id_empleado': id_empleado}
                 )
                 empleado = cursor.fetchone()
-            connection.commit()
-
-            return empleado
+                return empleado
         except Exception as e:
-            print("Error al actualizar el empleado:", e)
+            print("Error al obtener empleado:", e)
+            return None
         finally:
             connection.close()
 
@@ -161,21 +157,22 @@ class EmpleadoPersona:
                 cursor.execute(
                     """
                     UPDATE EMPLEADO
-                    SET email = :1, ci = :2, comisionES = :3
-                    where idEmpleado = :4
+                    SET email = %s, ci = %s, comisionES = %s
+                    WHERE idEmpleado = %s
                     """, (email, ci, comisionES, id_empleado)
                 )
-            connection.commit()
+                connection.commit()
         except Exception as e:
             print("Error al actualizar el empleado:", e)
         finally:
             connection.close()
+
     @staticmethod
     def delete_empleado(id_empleado):
         connection = db()
         try:
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM EMPLEADO WHERE idEmpleado = :1", (id_empleado,))
+                cursor.execute("DELETE FROM EMPLEADO WHERE idEmpleado = %s", (id_empleado,))
                 connection.commit()
         except Exception as ex:
             print("Error al eliminar el empleado:", ex)

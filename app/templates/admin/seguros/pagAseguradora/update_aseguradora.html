@@ -1,0 +1,27 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Detalles de la Aseguradora</h1>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="p-6">
+            <form method="POST" action="/admin-dashboard/aseg/update/{{ aseguradora[0] }}">
+                <div class="mb-4">
+                    <label for="id_aseguradora" class="block text-sm font-medium text-gray-700">Id Aseguradora:</label>
+                    <input type="number" id="id_aseguradora" name="id_aseguradora" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required value="{{ aseguradora[0] }}" readonly>
+                </div>
+                <div class="mb-4">
+                    <label for="nombre_aseguradora" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <input type="text" id="nombre_aseguradora" name="nombre_aseguradora" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required value="{{ aseguradora[1] }}">
+                </div>
+                <div class="mb-4">
+                    <label for="contacto_aseguradora" class="block text-sm font-medium text-gray-700">Contacto:</label>
+                    <input type="email" id="contacto_aseguradora" name="contacto_aseguradora" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required value="{{ aseguradora[2] }}">
+                </div>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">Actualizar</button>
+                <a href="/admin-dashboard/aseg" class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">Volver</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

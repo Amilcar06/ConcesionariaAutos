@@ -1,186 +1,409 @@
 from database import db
-db_conecction =db()
+import random
+db_connection = db()
 
-class TipoCambio():
-      def __init__(self,id_tipo_cambio,fecha_tipo_cambio,valor_dolar):
-            self.id = id_tipo_cambio
-            self.fecha = fecha_tipo_cambio
-            self.valor_dolar = valor_dolar
+from mysql.connector import pooling
 
-      @staticmethod
-      def query(query):
-            connection = db()
-            cursor = connection.cursor()
+db_config = {
+    'user': 'root',
+    'password': '12345678',
+    'host': 'localhost',
+    'database': 'concesionaria_Autos',
+}
 
-            cursor.execute(query)
+connection_pool = pooling.MySQLConnectionPool(
+    pool_name="mypool",
+    pool_size=5,
+    **db_config
+)
 
-            return cursor.fetchall()
+def get_connection():
+    return connection_pool.get_connection()
 
+class TipoCambio:
+    def __init__(self, id_tipo_cambio=None, fecha_tipo_cambio=None, valor_dolar=None):
+        self.id = id_tipo_cambio
+        self.fecha = fecha_tipo_cambio
+        self.valor_dolar = valor_dolar
 
-      def create(self):
-            connection = db()
-            print(self.id,self.fecha,self.valor_dolar)
-            try:
-                  with connection.cursor() as cursor:
-                        cursor.execute(
-                        """
-                        INSERT INTO TIPO_CAMBIO (IDTIPOCAMBIO,FECHATIPOCAMBIO,VALORDOLAR) 
-                        VALUES (:id,:fecha,:valor)
-                        """,
-                        {
-                              "id":self.id+1,
-                              "fecha":self.fecha,
-                              "valor":self.valor_dolar
-                        }
-                        )
-                        connection.commit()
-                  return True
-            except Exception as ex:
-                  print("Error al crear la reserva:", ex)
-                  return False
-            finally:
-                  connection.close()
+    @staticmethod
+    def query(query, params=None):
+        connection = db_connection
+        cursor = connection.cursor()
+        cursor.execute(query, params or ())
+        result = cursor.fetchall()
+        cursor.close()
+        return result
 
-      @staticmethod
-      def find_all():
-            cursor = db_conecction.cursor()
-            cursor.execute("SELECT * FROM VEHICULO")  # Ejemplo de consulta
-            lista = []
-            for tipo in cursor.fetchall():
-                  tipo_cambio = TipoCambio(tipo[0],tipo[1],tipo[2])
-                  lista.append(tipo_cambio)
-            cursor.close()
-            return lista
-      @staticmethod
-      def find_by(id):
-            cursor = db_conecction.cursor()
-            cursor.execute(
-                  "SELECT * FROM TIPO_CAMBIO where IDTIPOCAMBIO = :1",
-                  id)  # Ejemplo de consulta
-            tipo = cursor.fetchone()
-            tipo_cambio = TipoCambio(tipo[0],tipo[1],tipo[2])
-            cursor.close()
-            return tipo_cambio
+    def create(self):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO tipo_cambio (fechatipocambio, valordolar)
+                    VALUES (%s, %s)
+                    """,
+                    (self.fecha, self.valor_dolar)
+                )
+                connection.commit()
+            return True
+        except Exception as ex:
+            print("Error al crear tipo de cambio:", ex)
+            connection.rollback()
+            return False
 
-      
+    @staticmethod
+    def find_all():
+        connection = db_connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT idtipocambio, fechatipocambio, valordolar FROM tipo_cambio")
+        lista = [TipoCambio(*row) for row in cursor.fetchall()]
+        cursor.close()
+        return lista
 
-            
-      def update(self,id_tipo_cambio = None,fecha_tipo_cambio = None,valor_dolar=None):
-            connection = db()
+    @staticmethod
+    def find_by(id):
+        connection = db_connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT idtipocambio, fechatipocambio, valordolar FROM tipo_cambio WHERE idtipocambio = %s", (id,))
+        row = cursor.fetchone()
+        cursor.close()
+        return TipoCambio(*row) if row else None
 
-            if id_tipo_cambio is not None:
-                  self.id = id_tipo_cambio
-            if fecha_tipo_cambio is not None:
-                  self.fecha = fecha_tipo_cambio
-            if valor_dolar is not None:
-                  self.valor_dolar = valor_dolar
+    def update(self):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE tipo_cambio
+                    SET fechatipocambio = %s, valordolar = %s
+                    WHERE idtipocambio = %s
+                    """,
+                    (self.fecha, self.valor_dolar, self.id)
+                )
+                connection.commit()
+            return True
+        except Exception as ex:
+            print("Error al actualizar tipo de cambio:", ex)
+            connection.rollback()
+            return False
 
-            try:
-                  with connection.cursor() as cursor:
-                        cursor.execute(
-                              """UPDATE vehiculo 
-                              SET FECHATIPOCAMBIO = :1,
-                                    VALORDOLAR = :2
+    @staticmethod
+    def delete(id_tipo_cambio):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM tipo_cambio WHERE idtipocambio = %s", (id_tipo_cambio,))
+                connection.commit()
+            return True
+        except Exception as ex:
+            print("Error al eliminar tipo de cambio:", ex)
+            connection.rollback()
+            return False
 
-                              WHERE IDTIPOCAMBIO = :3""",
-                              (self.fecha,self.valor_dolar,self.id)
-                        )
-                        connection.commit()
-                  return True
-            except Exception as ex:
-                  print("Error al actualizar la reserva:", ex)
-                  return False
-            finally:
-                  connection.close()
-      
-      @staticmethod
-      def delete(id_vehiculo):
-            connection = db()
-            try:
-                  with connection.cursor() as cursor:
-                        cursor.execute(
-                        "DELETE FROM tipo_cambio WHERE IDTIPOCAMBIO = :1",
-                        (id_vehiculo)
-                        )
-                        connection.commit()
-                  return True
-            except Exception as ex:
-                  print("Error al eliminar la reserva:", ex)
-                  return False
-            finally:
-                  connection.close()
 
 class Transaccion:
-      def __init__(self,id,id_cliente,tipo_transaccion,fecha_transaccion,costo,id_tipo_cambio) -> None:
-            self.id = id
-            self.id_cliente = id_cliente
-            self.transaccion = tipo_transaccion
-            self.fecha = fecha_transaccion
-            self.costo = costo
-            self.id_tipo_cambio = id_tipo_cambio
-      
-      def create(self):
-            connection = db()
-            try:
-                  with connection.cursor() as cursor:
-                        cursor.execute(
-                        """
-                        INSERT INTO transaccion (idtransaccion,idcliente,tipotransaccion,fechatransaccion,costo,idtipocambio) 
-                        VALUES (:id,:id_cliente,:tipo,:fecha,:costo,:id_tipo)
-                        """,
-                        ({
-                              "id":self.id+1,
-                              "id_cliente":self.id_cliente,
-                              "tipo":self.transaccion,
-                              "fecha":self.fecha,
-                              "costo":self.costo,
-                              "id_tipo":self.id_tipo_cambio
-                        })
-                        )
-                        connection.commit()
-                  return True
-            except Exception as ex:
-                  print("Error al crear la reserva:", ex)
-                  return False
-            finally:
-                  connection.close()
-      @staticmethod
-      def delete_transaccion(id_transaccion):
-            connection = db()
-            cursor = connection.cursor()
-            cursor.execute("DELETE FROM TRANSACCION WHERE idTransaccion = :1", (id_transaccion,))
-            connection.commit()
-            cursor.close()
-            connection.close()
+    def __init__(self, id=None, id_cliente=None, tipo_transaccion=None, fecha_transaccion=None, costo=None, id_tipo_cambio=None):
+        self.id = id
+        self.id_cliente = id_cliente
+        self.tipo_transaccion = tipo_transaccion
+        self.fecha_transaccion = fecha_transaccion
+        self.costo = costo
+        self.id_tipo_cambio = id_tipo_cambio
 
-      @staticmethod
-      def find_all():
-            cursor = db_conecction.cursor()
-            cursor.execute("SELECT * FROM transaccion")  # Ejemplo de consulta
-            lista = []
-            for transaccion in cursor.fetchall():
-                  transaccion_x = Transaccion(transaccion[0],transaccion[1],transaccion[2],transaccion[3],transaccion[4],transaccion[5])
-                  lista.append(transaccion_x)
-            cursor.close()
+    def create(self):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO transaccion (idcliente, tipotransaccion, fechatransaccion, costo, idtipocambio)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (self.id_cliente, self.tipo_transaccion, self.fecha_transaccion, self.costo, self.id_tipo_cambio)
+                )
+                connection.commit()
+            return True
+        except Exception as ex:
+            print("Error al crear la transacción:", ex)
+            connection.rollback()
+            return False
+        
+    @staticmethod
+    def find_by(id_transaccion):
+        connection = db_connection
+        cursor = connection.cursor()
+        cursor.execute(
+            """
+            SELECT idtransaccion, idcliente, tipotransaccion, fechatransaccion, costo, idtipocambio
+            FROM transaccion
+            WHERE idtransaccion = %s
+            """,
+            (id_transaccion,)
+        )
+        row = cursor.fetchone()
+        cursor.close()
+        return Transaccion(*row) if row else None
+
+
+    @staticmethod
+    def delete_transaccion(id_transaccion):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM transaccion WHERE idtransaccion = %s", (id_transaccion,))
+                connection.commit()
+        except Exception as ex:
+            print("Error al eliminar transacción:", ex)
+            connection.rollback()
+
+    @staticmethod
+    def find_all():
+        connection = db()  # Crea una nueva conexión
+        try:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM transaccion")
+            lista = [Transaccion(*row) for row in cursor.fetchall()]
             return lista
-            
-      @staticmethod
-      def update_transaccion(id_transaccion, tipo_transaccion, costo, id_tipo_cambio):
-            connection = db()
-            cursor = connection.cursor()
-            cursor.execute("""
-                  UPDATE TRANSACCION
-                  SET tipoTransaccion = :1, costo = :2, idTipoCambio = :3
-                  WHERE idTransaccion = :4
-            """, (tipo_transaccion, costo, id_tipo_cambio, id_transaccion))
-            connection.commit()
-            cursor.close() 
+        except Exception as ex:
+            print(f"Error al obtener transacciones: {ex}")
+            return []
+        finally:
+            if connection:
+                connection.close()  # Cierra la conexión después de usarla
+
+    @staticmethod
+    def update_transaccion(id_transaccion, tipo_transaccion, costo, id_tipo_cambio):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE transaccion
+                    SET tipotransaccion = %s, costo = %s, idtipocambio = %s
+                    WHERE idtransaccion = %s
+                    """,
+                    (tipo_transaccion, costo, id_tipo_cambio, id_transaccion)
+                )
+                connection.commit()
+        except Exception as ex:
+            print("Error al actualizar transacción:", ex)
+            connection.rollback()
+
+    @staticmethod
+    def query(query, params=None):
+        connection = db_connection
+        cursor = connection.cursor()
+        cursor.execute(query, params or ())
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    @staticmethod
+    def validar_estado_vehiculo(id_vehiculo):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT idEstadoVehiculo FROM VEHICULO WHERE idVehiculo = %s",
+                    (id_vehiculo,)
+                )
+                return cursor.fetchone()
+        except Exception as ex:
+            print(f"Error al validar estado del vehículo: {ex}")
+            return None
+        finally:
             connection.close()
-      @staticmethod
-      def query(query):
-            connection = db()
-            cursor = connection.cursor()
 
-            cursor.execute(query)
+    @staticmethod
+    def crear_transaccion(id_cliente, tipo_transaccion, fecha_transaccion, costo, id_tipo_cambio):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO TRANSACCION (idCliente, tipoTransaccion, fechaTransaccion, costo, idTipoCambio)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, tipo_transaccion, fecha_transaccion, costo, id_tipo_cambio)
+                )
+                connection.commit()
+                return cursor.lastrowid
+        except Exception as ex:
+            print(f"Error al crear la transacción: {ex}")
+            connection.rollback()
+            return None
+        finally:
+            connection.close()
+    
+    @staticmethod
+    def actualizar_estado_vehiculo(id_vehiculo, nuevo_estado):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE VEHICULO
+                    SET idEstadoVehiculo = %s
+                    WHERE idVehiculo = %s
+                    """,
+                    (nuevo_estado, id_vehiculo)
+                )
+                connection.commit()
+        except Exception as ex:
+            print(f"Error al actualizar el estado del vehículo: {ex}")
+            connection.rollback()
+        finally:
+            connection.close()
 
-            return cursor.fetchall()
+    @staticmethod
+    def registrar_relacion_realiza(id_cliente, id_vehiculo, id_transaccion, monto, fecha):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    """
+                    INSERT INTO REALIZA (idCliente, idVehiculo, idTransaccion, monto, fecha)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, id_vehiculo, id_transaccion, monto, fecha)
+                )
+                connection.commit()
+        except Exception as ex:
+            print(f"Error al registrar relación en REALIZA: {ex}")
+            connection.rollback()
+        finally:
+            connection.close()
+
+    @staticmethod
+    def procesar_compra(id_cliente, id_vehiculo, monto, fecha, tipo_cambio=1):
+        connection = db_connection
+        try:
+            with connection.cursor() as cursor:
+                # Validar estado del vehículo
+                cursor.execute("SELECT idEstadoVehiculo FROM VEHICULO WHERE idVehiculo = %s", (id_vehiculo,))
+                estado_vehiculo = cursor.fetchone()
+                if not estado_vehiculo or estado_vehiculo[0] != 1:  # 1 = Disponible
+                    return {"success": False, "message": "El vehículo no está disponible para la compra."}
+
+                # Crear la transacción
+                cursor.execute(
+                    """
+                    INSERT INTO TRANSACCION (idCliente, tipoTransaccion, fechaTransaccion, costo, idTipoCambio)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, 'Venta', fecha, monto, tipo_cambio)
+                )
+                id_transaccion = cursor.lastrowid
+
+                # Actualizar estado del vehículo
+                cursor.execute(
+                    """
+                    UPDATE VEHICULO
+                    SET idEstadoVehiculo = 4
+                    WHERE idVehiculo = %s
+                    """,
+                    (id_vehiculo,)
+                )
+
+                # Registrar relación en REALIZA
+                cursor.execute(
+                    """
+                    INSERT INTO REALIZA (idCliente, idVehiculo, idTransaccion, monto, fecha)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, id_vehiculo, id_transaccion, monto, fecha)
+                )
+
+                # Confirmar transacción
+                connection.commit()
+                return {"success": True, "message": "Compra realizada con éxito."}
+        except Exception as ex:
+            connection.rollback()
+            print(f"Error al procesar la compra: {ex}")
+            return {"success": False, "message": "Error al procesar la compra."}
+        finally:
+            connection.close()
+
+    @staticmethod
+    def procesar_alquiler(id_cliente, id_vehiculo, fecha_inicio, fecha_fin, costo, fecha_transaccion):
+        connection = get_connection()  # Usa una nueva conexión
+        try:
+            with connection.cursor() as cursor:
+                # Validar que el vehículo esté disponible
+                cursor.execute(
+                    "SELECT idEstadoVehiculo FROM VEHICULO WHERE idVehiculo = %s",
+                    (id_vehiculo,)
+                )
+                estado_vehiculo = cursor.fetchone()
+                if not estado_vehiculo or estado_vehiculo[0] != 1:  # 1 = Disponible
+                    return {"success": False, "message": "El vehículo no está disponible para alquiler."}
+
+                # Obtener un empleado disponible
+                id_empleado = Transaccion.obtener_empleado_disponible()
+                if not id_empleado:
+                    return {"success": False, "message": "No hay empleados disponibles para procesar la reserva."}
+
+                # Crear la transacción
+                cursor.execute(
+                    """
+                    INSERT INTO TRANSACCION (idCliente, tipoTransaccion, fechaTransaccion, costo, idTipoCambio)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, "Alquiler", fecha_transaccion, costo, 1)
+                )
+                id_transaccion = cursor.lastrowid
+
+                # Actualizar el estado del vehículo a 'Alquilado' (idEstadoVehiculo = 3)
+                cursor.execute(
+                    """
+                    UPDATE VEHICULO
+                    SET idEstadoVehiculo = 3
+                    WHERE idVehiculo = %s
+                    """,
+                    (id_vehiculo,)
+                )
+
+                # Registrar la reserva en la tabla RESERVA
+                cursor.execute(
+                    """
+                    INSERT INTO RESERVA (idCliente, idEmpleado, fechaInicio, fechaFin, contrato)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """,
+                    (id_cliente, id_empleado, fecha_inicio, fecha_fin, f"R-{id_transaccion}")
+                )
+
+                # Confirmar transacción
+                connection.commit()
+                return {"success": True, "message": "El alquiler se realizó con éxito."}
+        except Exception as ex:
+            connection.rollback()
+            print(f"Error al procesar el alquiler: {ex}")
+            return {"success": False, "message": "Error al procesar el alquiler."}
+        finally:
+            connection.close()  # Cierra la conexión al final
+
+
+    @staticmethod
+    def obtener_empleado_disponible():
+        connection = get_connection()
+        try:
+            with connection.cursor(dictionary=True) as cursor:
+                # Obtener todos los empleados disponibles
+                cursor.execute("SELECT idEmpleado FROM EMPLEADO")
+                empleados = [row['idEmpleado'] for row in cursor.fetchall()]
+                
+                # Seleccionar un empleado de forma aleatoria si hay empleados disponibles
+                if empleados:
+                    id_empleado_random = random.choice(empleados)  # Selección aleatoria
+                    return id_empleado_random
+                else:
+                    print("No hay empleados disponibles.")
+                    return None
+        except Exception as ex:
+            print(f"Error al obtener empleado disponible: {ex}")
+            return None
+        finally:
+            connection.close()

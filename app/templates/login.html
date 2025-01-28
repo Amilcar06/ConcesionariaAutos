@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Acceso de Administrador - AutosPrime</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="font-roboto bg-gray-100">
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Iniciar Sesion</h1>
+            <p class="text-gray-600">Inicia sesión para acceder al panel de administración o cuenta cliente.</p>
+        </header>
+        <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+            <form action="/login" method="POST">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Nombre de usuario o correo electrónico</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" placeholder="Nombre de usuario" type="text" required/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Contraseña</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" placeholder="Contraseña" type="password" required/>
+                </div>
+                <div class="mb-4 text-center">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Iniciar Sesión</button>
+                </div>
+                <div>
+                    <a class="hover:text-gray-800" href="/">Página de Inicio</a>
+                </div>
+            </form>
+        </div>
+        <footer class="mt-8 text-center text-gray-600">
+            <p>
+                <a class="hover:text-gray-800" href="/privacy-policy">Política de Privacidad</a> |
+                <a class="hover:text-gray-800" href="/terms-conditions">Términos y Condiciones</a>
+            </p>
+            <p class="mt-4">Contacto: +591 76717403 | Email: AutosPime@gmail.com </p>
+        </footer>
+    </div>
+</body>
+</html>

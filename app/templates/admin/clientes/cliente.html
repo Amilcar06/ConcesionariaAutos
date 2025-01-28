@@ -1,0 +1,26 @@
+{% extends "/admin/base_admin.html" %}
+{% block content %}
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Detalles del Cliente</h1>
+
+    {% if cliente %}
+        <p class="mb-4">El cliente con ID <span class="font-semibold">{{ cliente.idCliente }}</span> tiene los siguientes detalles:</p>
+        <ul class="list-disc pl-5 mb-4">
+            <li><strong>Nombre:</strong> {{ cliente.nombre }}</li>
+            <li><strong>Apellido Paterno:</strong> {{ cliente.paterno }}</li>
+            <li><strong>Apellido Materno:</strong> {{ cliente.materno }}</li>
+            <li><strong>Dirección:</strong> {{ cliente.direccion }}</li>
+            <li><strong>Teléfono:</strong> {{ cliente.telefono }}</li>
+            <li><strong>Email:</strong> {{ cliente.email }}</li>
+            <li><strong>Fecha de Nacimiento:</strong> {{ cliente.fecha_nacimiento }}</li>
+            <li><strong>Fecha de Registro:</strong> {{ cliente.fecha_registro }}</li>
+        </ul>
+    {% else %}
+        <p class="text-red-500">No existe ningún cliente con el ID especificado.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('auth.get_clientes') }}" class="inline-block mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">Volver a la lista de clientes</a>
+</div>
+
+{% endblock %}

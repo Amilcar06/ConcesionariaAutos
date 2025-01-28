@@ -1,0 +1,149 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+  <!-- Encabezado -->
+  <section class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">Nuestros Servicios</h1>
+    <p class="text-lg">
+      Ofrecemos una gama completa de servicios para satisfacer todas tus
+      necesidades automotrices.
+    </p>
+  </section>
+  <!-- Lista de Servicios -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Lista de Servicios</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Financiamiento -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div class="h-48 overflow-hidden mb-4">
+          <img
+          alt="Imagen de un contrato de financiamiento y un auto"
+          class="w-full h-full object-cover"
+          src="{{ url_for('static', filename='recursos/financiamiento.jpg') }}"
+        />
+        </div>
+        <h3 class="text-xl font-bold mb-2">Financiamiento</h3>
+        <p>
+          Información sobre las opciones de financiamiento disponibles,
+          incluyendo tasas de interés y requisitos.
+        </p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="window.location.href='/financiamiento'"
+        >
+          Ver Opciones de Financiamiento
+        </button>
+      </div>
+      <!-- Alquiler de Autos -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div class="h-48 overflow-hidden mb-4">
+          <img
+          alt="Imagen de un auto de alquiler"
+          class="w-full h-full object-cover"
+          src="{{ url_for('static', filename='recursos/alquiler.jpg') }}"
+        />
+        </div>
+        <h3 class="text-xl font-bold mb-2">Alquiler de Autos</h3>
+        <p>
+          Detalles sobre el servicio de alquiler, tipos de vehículos disponibles
+          y tarifas.
+        </p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="window.location.href='/servicios/alquileres'"
+        >
+        Alquilar un Auto
+        </button>
+      </div>
+      <!-- Mantenimiento y Reparación -->
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div class="h-48 overflow-hidden mb-4">
+          <img
+          alt="Imagen de un mecánico trabajando en un auto"
+          class="w-full h-full object-cover"
+          src="{{ url_for('static', filename='recursos/mantenimiento.jpg') }}"
+        />
+        </div>
+        <h3 class="text-xl font-bold mb-2">Mantenimiento y Reparación</h3>
+        <p>
+          Servicios de mantenimiento preventivo y reparaciones, incluyendo
+          cambios de aceite, frenos, etc.
+        </p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          onclick="window.location.href='/contacto'"
+        >
+          Programar una Cita
+        </button>
+      </div>
+    </div>
+  </section>
+  <!-- Sección de Promociones -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Promociones</h2>
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">Descuento en Mantenimiento</h3>
+      <p>
+        Aprovecha un 20% de descuento en servicios de mantenimiento durante este
+        mes.
+      </p>
+    </div>
+  </section>
+  <!-- Testimonios de Clientes -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Testimonios de Clientes</h2>
+    <div class="space-y-4">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "El servicio de mantenimiento fue excelente. Mi auto quedó como
+          nuevo." - Juan Pérez
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "Gracias al asesoramiento, pude elegir el auto perfecto para mi
+          familia." - María López
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <p>
+          "El proceso de financiamiento fue rápido y sencillo. Muy
+          recomendable." - Carlos García
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Preguntas Frecuentes (FAQ) -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Preguntas Frecuentes (FAQ)</h2>
+    <div class="space-y-4">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">¿Qué incluye el servicio de mantenimiento?</h3>
+        <p>
+          El servicio de mantenimiento incluye cambios de aceite, revisión de
+          frenos, y más.
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">
+          ¿Cómo puedo programar una cita para reparación?
+        </h3>
+        <p>
+          Puedes programar una cita en línea a través de nuestro formulario de
+          citas.
+        </p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+        <h3 class="font-bold">
+          ¿Cuáles son los requisitos para alquilar un auto?
+        </h3>
+        <p>
+          Los requisitos incluyen una identificación válida y una tarjeta de
+          crédito.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

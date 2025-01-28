@@ -1,14 +1,15 @@
 from database import db
 
 class Seguro:
-    def create_seguro(self, id_seguro, id_vehiculo, id_aseguradora, fecha_inicio, fecha_fin, tipo_seguro, costo):
+    @staticmethod
+    def create_seguro(id_seguro, id_vehiculo, id_aseguradora, fecha_inicio, fecha_fin, tipo_seguro, costo):
         connection = db()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
                     INSERT INTO SEGURO (idSeguro, idVehiculo, idAseguradora, fechaInicio, fechaFin, tipoSeguro, costo) 
-                    VALUES (:id_seguro, :id_vehiculo, :id_aseguradora, :fecha_inicio, :fecha_fin, :tipo_seguro, :costo)
+                    VALUES (%(id_seguro)s, %(id_vehiculo)s, %(id_aseguradora)s, %(fecha_inicio)s, %(fecha_fin)s, %(tipo_seguro)s, %(costo)s)
                     """,
                     {
                         'id_seguro': id_seguro,
@@ -27,7 +28,8 @@ class Seguro:
         finally:
             connection.close()
 
-    def find_all(self):
+    @staticmethod
+    def find_all():
         connection = db()
         try:
             with connection.cursor() as cursor:
@@ -37,12 +39,13 @@ class Seguro:
         finally:
             connection.close()
 
-    def find_by(self, id_seguro):
+    @staticmethod
+    def find_by(id_seguro):
         connection = db()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT * FROM SEGURO WHERE idSeguro = :id_seguro",
+                    "SELECT * FROM SEGURO WHERE idSeguro = %(id_seguro)s",
                     {'id_seguro': id_seguro}
                 )
                 seguro = cursor.fetchone()
@@ -50,20 +53,21 @@ class Seguro:
         finally:
             connection.close()
 
-    def update_seguro(self, id_seguro, nuevo_id_vehiculo, nuevo_id_aseguradora, nueva_fecha_inicio, nueva_fecha_fin, nuevo_tipo_seguro, nuevo_costo):
+    @staticmethod
+    def update_seguro(id_seguro, nuevo_id_vehiculo, nuevo_id_aseguradora, nueva_fecha_inicio, nueva_fecha_fin, nuevo_tipo_seguro, nuevo_costo):
         connection = db()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
                     """
                     UPDATE SEGURO 
-                    SET idVehiculo = :nuevo_id_vehiculo,
-                        idAseguradora = :nuevo_id_aseguradora,
-                        fechaInicio = :nueva_fecha_inicio,
-                        fechaFin = :nueva_fecha_fin,
-                        tipoSeguro = :nuevo_tipo_seguro,
-                        costo = :nuevo_costo
-                    WHERE idSeguro = :id_seguro
+                    SET idVehiculo = %(nuevo_id_vehiculo)s,
+                        idAseguradora = %(nuevo_id_aseguradora)s,
+                        fechaInicio = %(nueva_fecha_inicio)s,
+                        fechaFin = %(nueva_fecha_fin)s,
+                        tipoSeguro = %(nuevo_tipo_seguro)s,
+                        costo = %(nuevo_costo)s
+                    WHERE idSeguro = %(id_seguro)s
                     """,
                     {
                         'nuevo_id_vehiculo': nuevo_id_vehiculo,
@@ -82,12 +86,13 @@ class Seguro:
         finally:
             connection.close()
 
-    def delete_seguro(self, id_seguro):
+    @staticmethod
+    def delete_seguro(id_seguro):
         connection = db()
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "DELETE FROM SEGURO WHERE IDSEGURO = :id_seguro",
+                    "DELETE FROM SEGURO WHERE idSeguro = %(id_seguro)s",
                     {'id_seguro': id_seguro}
                 )
                 connection.commit()
@@ -97,21 +102,78 @@ class Seguro:
         finally:
             connection.close()
 
-    def seguros_vencidos(self):
+    @staticmethod
+    def seguros_vencidos():
         connection = db()
         try:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM SEGURO WHERE fechaFin < SYSDATE")
+                cursor.execute("SELECT * FROM SEGURO WHERE fechaFin < NOW()")
                 seguros = cursor.fetchall()
                 return seguros
         finally:
             connection.close()
     
-    def seguros_activos(self):
+    @staticmethod
+    def seguros_activos():
         connection = db()
         try:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM SEGURO WHERE fechaFin > SYSDATE")
+                cursor.execute("SELECT * FROM SEGURO WHERE fechaFin > NOW()")
+                seguros = cursor.fetchall()
+                return seguros
+        finally:
+            connection.close()
+
+    @staticmethod
+    def reporte_1():
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM reporte_1")
+                reportes = cursor.fetchall()
+                return reportes
+        finally:
+            connection.close()
+
+    @staticmethod
+    def reporte_2():
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM reporte_2")
+                seguros = cursor.fetchall()
+                return seguros
+        finally:
+            connection.close()
+
+    @staticmethod
+    def reporte_3():
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM reporte_3")
+                seguros = cursor.fetchall()
+                return seguros
+        finally:
+            connection.close()
+
+    @staticmethod
+    def reporte_4():
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM reporte_4")
+                seguros = cursor.fetchall()
+                return seguros
+        finally:
+            connection.close()
+
+    @staticmethod
+    def reporte_5():
+        connection = db()
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM reporte_5")
                 seguros = cursor.fetchall()
                 return seguros
         finally:

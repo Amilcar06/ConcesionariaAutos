@@ -1,0 +1,48 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+  <h2 class="text-3xl font-bold mb-6">Dashboard</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <!-- Vehículos en Inventario -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-2">Vehículos en Inventario</h3>
+      <p class="text-2xl text-blue-600">{{ vehiculos_inventario }}</p>
+    </div>
+    <!-- Ventas del Mes -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-2">Ventas del Mes</h3>
+      <p class="text-2xl text-blue-600">{{ ventas_mes }}</p>
+    </div>
+    <!-- Alquileres Activos -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-2">Alquileres Activos</h3>
+      <p class="text-2xl text-blue-600">{{ alquileres_activos }}</p>
+    </div>
+  </div>
+  <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+    <h3 class="text-xl font-bold mb-4">Notificaciones</h3>
+    <ul class="list-disc list-inside">
+      <li class="mb-2">Vehículo con ID 123 necesita mantenimiento.</li>
+      <li class="mb-2">Consulta de cliente sin respuesta.</li>
+      <li class="mb-2">Nuevo usuario registrado.</li>
+    </ul>
+  </div>
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-xl font-bold mb-4">Accesos Rápidos</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <a
+        class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded text-center"
+        href="javascript:void(0);"
+        >Agregar Vehículo</a
+      >
+      <a
+        class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded text-center"
+        href="{{ url_for('auth.dashboard_ingresos') }}"
+        >Ver Ingresos y Transacciones</a
+      >
+      <a
+        class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded text-center"
+        href="javascript:void(0);"
+        >Ver Consultas</a
+      >
+    </div>
+  </div>
+{% endblock %}

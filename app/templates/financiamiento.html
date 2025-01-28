@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+   <!-- Encabezado -->
+   <section class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">
+     Opciones de Financiamiento
+    </h1>
+    <p class="text-lg">
+     Encuentra la mejor opción de financiamiento para tu nuevo auto.
+    </p>
+   </section>
+   <!-- Calculadora de Pagos -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Calculadora de Pagos
+    </h2>
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+     <form id="payment-calculator">
+      <div class="mb-4">
+       <label class="block text-gray-700" for="vehicle-price">
+        Precio del vehículo
+       </label>
+       <input class="w-full p-2 rounded bg-white border border-gray-300" id="vehicle-price" name="vehicle-price" type="number"/>
+      </div>
+      <div class="mb-4">
+       <label class="block text-gray-700" for="down-payment">
+        Pago inicial
+       </label>
+       <input class="w-full p-2 rounded bg-white border border-gray-300" id="down-payment" name="down-payment" type="number"/>
+      </div>
+      <div class="mb-4">
+       <label class="block text-gray-700" for="interest-rate">
+        Tasa de interés (%)
+       </label>
+       <input class="w-full p-2 rounded bg-white border border-gray-300" id="interest-rate" name="interest-rate" type="number" step="0.01"/>
+      </div>
+      <div class="mb-4">
+       <label class="block text-gray-700" for="loan-term">
+        Plazo del préstamo (meses)
+       </label>
+       <input class="w-full p-2 rounded bg-white border border-gray-300" id="loan-term" name="loan-term" type="number"/>
+      </div>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" onclick="calculatePayment()">
+       Calcular Pago Mensual
+      </button>
+     </form>
+     <div class="mt-4" id="payment-result">
+      <!-- Resultados de la calculadora -->
+     </div>
+    </div>
+   </section>
+   <!-- Opciones de Financiamiento -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Opciones de Financiamiento
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">
+       Financiamiento a través de la Concesionaria
+      </h3>
+      <p>
+       Ofrecemos opciones de financiamiento con tasas competitivas y procesos simplificados.
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">
+       Financiamiento Bancario
+      </h3>
+      <p>
+       Obtén financiamiento a través de bancos o instituciones financieras. Te ayudamos a elegir la mejor opción.
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">
+       Leasing
+      </h3>
+      <p>
+       El leasing te permite disfrutar de un auto nuevo con pagos mensuales más bajos. Compara entre leasing y compra.
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- Requisitos para Financiamiento -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Requisitos para Financiamiento
+    </h2>
+    <ul class="list-disc list-inside">
+     <li>
+      Identificación oficial
+     </li>
+     <li>
+      Comprobante de ingresos
+     </li>
+     <li>
+      Historial crediticio
+     </li>
+    </ul>
+    <p class="mt-4">
+     Evaluamos tu elegibilidad basándonos en estos documentos.
+    </p>
+   </section>
+   <!-- Proceso de Solicitud -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Proceso de Solicitud
+    </h2>
+    <ol class="list-decimal list-inside">
+     <li>
+      Completar el formulario de solicitud en línea.
+     </li>
+     <li>
+      Proporcionar la documentación requerida.
+     </li>
+     <li>
+      Esperar la aprobación.
+     </li>
+     <li>
+      Firmar el contrato y recoger el vehículo.
+     </li>
+    </ol>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onclick="window.location.href='/contacto'">
+     Solicitar Financiamiento
+    </button>
+   </section>
+   <!-- Testimonios de Clientes -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Testimonios de Clientes
+    </h2>
+    <div class="space-y-4">
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <p>
+       "El proceso de financiamiento fue rápido y sencillo. Estoy muy contento con mi nuevo auto." - Juan Pérez
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <p>
+       "Gracias a las opciones de financiamiento, pude comprar el auto de mis sueños." - María López
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <p>
+       "Excelente servicio y tasas de interés competitivas. Muy recomendable." - Carlos García
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- Preguntas Frecuentes (FAQ) -->
+   <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">
+     Preguntas Frecuentes (FAQ)
+    </h2>
+    <div class="space-y-4">
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="font-bold">
+       ¿Cuál es la tasa de interés promedio?
+      </h3>
+      <p>
+       La tasa de interés promedio varía según el perfil crediticio del cliente y las condiciones del mercado.
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="font-bold">
+       ¿Qué pasa si tengo mal crédito?
+      </h3>
+      <p>
+       Ofrecemos opciones de financiamiento para clientes con mal crédito. Contáctanos para más información.
+      </p>
+     </div>
+     <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h3 class="font-bold">
+       ¿Puedo pagar mi préstamo anticipadamente?
+      </h3>
+      <p>
+       Sí, puedes pagar tu préstamo anticipadamente sin penalizaciones.
+      </p>
+     </div>
+    </div>
+   </section>
+  </main>
+  <script>
+   function calculatePayment() {
+    const price = document.getElementById('vehicle-price').value;
+    const downPayment = document.getElementById('down-payment').value;
+    const interestRate = document.getElementById('interest-rate').value;
+    const loanTerm = document.getElementById('loan-term').value;
+
+    if (price && downPayment && interestRate && loanTerm) {
+     const principal = price - downPayment;
+     const monthlyInterestRate = (interestRate / 100) / 12;
+     const numberOfPayments = loanTerm;
+     const monthlyPayment = (principal * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
+     const totalCost = monthlyPayment * numberOfPayments;
+
+     document.getElementById('payment-result').innerHTML = `
+       <p>Pago mensual estimado: $${monthlyPayment.toFixed(2)}</p>
+       <p>Costo total del préstamo: $${totalCost.toFixed(2)}</p>
+     `;
+    } else {
+     document.getElementById('payment-result').innerHTML = '<p class="text-red-500">Por favor, completa todos los campos.</p>';
+    }
+   }
+  </script>
+    
+{% endblock %}

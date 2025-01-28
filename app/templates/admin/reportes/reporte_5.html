@@ -1,0 +1,46 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<body class="bg-white text-black font-sans">
+    <div class="max-w-4xl mx-auto p-4">
+        <div class="text-sm text-gray-700">
+            <p>Reporte de Vehículos - Inventario y Análisis</p>
+            <p>Electrónica Bolivia - Enero 2025</p>
+        </div>
+        <h1 class="text-center text-2xl font-bold mt-4">AUTOPRIME</h1>
+        <p class="text-center mt-2">Reporte de las transacciones, los clientes que las realizaron, los vehículos involucrados, los seguros asociados, el mantenimiento realizado y los 
+            empleados que interactuaron con el cliente</p>
+        
+        <div class="overflow-x-auto mt-6">
+            <table class="min-w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-red-600 text-white">
+                        <th class="border border-gray-300 px-4 py-2">REPUESTO</th>
+                        <th class="border border-gray-300 px-4 py-2">DESCRIPCION</th>
+                        <th class="border border-gray-300 px-4 py-2">CANTIDAD</th>
+                        <th class="border border-gray-300 px-4 py-2">VEHICULO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reporte in reportes %}
+                    <tr class="{% if loop.index is odd %}bg-gray-100{% endif %}">
+                        <td class="border border-gray-300 px-4 py-2">{{ reporte[0] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ reporte[1] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ reporte[2] }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ reporte[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <a href="/admin-dashboard" class="inline-block mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">Volver</a>
+        </div>
+
+        <div class="text-sm text-gray-700 mt-4">
+            <p>Reporte generado automáticamente por el sistema de gestión.</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

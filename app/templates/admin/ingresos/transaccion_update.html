@@ -1,0 +1,56 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<div class="container mx-auto mt-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Actualizar Transacción</h2>
+    
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <form action="{{ url_for('auth.update_transaccion_view', id_transaccion=transaccion.id) }}" method="POST" class="space-y-6">
+            <!-- Tipo de Transacción -->
+            <div>
+                <label for="tipo_transaccion" class="block text-sm font-medium text-gray-700">Tipo de Transacción</label>
+                <input 
+                    type="text" 
+                    name="tipo_transaccion" 
+                    id="tipo_transaccion" 
+                    required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value="{{ transaccion.tipo_transaccion }}">
+            </div>
+
+            <!-- Costo -->
+            <div>
+                <label for="costo" class="block text-sm font-medium text-gray-700">Costo</label>
+                <input 
+                    type="number" 
+                    name="costo" 
+                    id="costo" 
+                    step="0.01" 
+                    required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value="{{ transaccion.costo }}">
+            </div>
+
+            <!-- ID Tipo de Cambio -->
+            <div>
+                <label for="id_tipo_cambio" class="block text-sm font-medium text-gray-700">ID Tipo de Cambio</label>
+                <input 
+                    type="number" 
+                    name="id_tipo_cambio" 
+                    id="id_tipo_cambio" 
+                    required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value="{{ transaccion.id_tipo_cambio }}">
+            </div>
+
+            <!-- Botón de Actualizar -->
+            <div class="flex items-center justify-between">
+                <button 
+                    type="submit" 
+                    class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Actualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

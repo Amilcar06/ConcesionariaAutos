@@ -1,0 +1,78 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<div class="container mx-auto mt-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Registrar Transacción</h2>
+    
+    <div class="mb-8 bg-white shadow-md rounded-lg p-6">
+        <!-- Formulario para registrar transacción -->
+        <form action="{{ url_for('auth.transaccion_register') }}" method="POST" class="space-y-4">
+            
+            <!-- ID del Cliente -->
+            <div>
+                <label for="idCliente" class="block text-sm font-medium text-gray-700">ID del Cliente</label>
+                <input 
+                    type="number" 
+                    id="idCliente" 
+                    name="idCliente" 
+                    required 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Tipo de Transacción -->
+            <div>
+                <label for="tipoTransaccion" class="block text-sm font-medium text-gray-700">Tipo de Transacción</label>
+                <input 
+                    type="text" 
+                    id="tipoTransaccion" 
+                    name="tipoTransaccion" 
+                    required 
+                    placeholder="Ejemplo: Compra, Venta"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Fecha de Transacción -->
+            <div>
+                <label for="fechaTransaccion" class="block text-sm font-medium text-gray-700">Fecha de Transacción</label>
+                <input 
+                    type="date" 
+                    id="fechaTransaccion" 
+                    name="fechaTransaccion" 
+                    required 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Costo -->
+            <div>
+                <label for="costo" class="block text-sm font-medium text-gray-700">Costo</label>
+                <input 
+                    type="number" 
+                    step="0.01" 
+                    id="costo" 
+                    name="costo" 
+                    required 
+                    placeholder="Ejemplo: 100.50"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- ID de Tipo de Cambio -->
+            <div>
+                <label for="idTipoCambio" class="block text-sm font-medium text-gray-700">ID de Tipo de Cambio</label>
+                <input 
+                    type="number" 
+                    id="idTipoCambio" 
+                    name="idTipoCambio" 
+                    required 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Botones de acción -->
+            <button type="submit" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
+                Registrar Transacción
+            </button>
+            <a href="{{ url_for('auth.admin_ingresos') }}" class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                Volver
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

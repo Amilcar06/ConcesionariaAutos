@@ -1,0 +1,158 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+<div class="container mx-auto my-10 p-8 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Editar Vehículo</h2>
+
+  <form
+    action="{{ url_for('auth.admin_edit_vehiculo', id=vehiculo.id_vehiculo) }}"
+    method="POST"
+  >
+    <div class="mb-4">
+      <label for="anio" class="block text-gray-700 text-sm font-bold mb-2"
+        >Año:</label
+      >
+      <input
+        type="number"
+        name="anio"
+        id="anio"
+        value="{{ vehiculo.anio }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Año del vehículo"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="modelo" class="block text-gray-700 text-sm font-bold mb-2"
+        >Modelo:</label
+      >
+      <input
+        type="text"
+        name="modelo"
+        id="modelo"
+        value="{{ vehiculo.modelo }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Modelo del vehículo"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="precio_diario"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Precio Diario:</label
+      >
+      <input
+        type="number"
+        step="0.01"
+        name="precio_diario"
+        id="precio_diario"
+        value="{{ vehiculo.precio_diario }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Precio diario en la moneda local"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="precio_dolar"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Precio en Dólares:</label
+      >
+      <input
+        type="number"
+        step="0.01"
+        name="precio_dolar"
+        id="precio_dolar"
+        value="{{ vehiculo.precio_dolar }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Precio en dólares"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="caracteristicas"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Características:</label
+      >
+      <textarea
+        name="caracteristicas"
+        id="caracteristicas"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Características del vehículo"
+      >
+{{ vehiculo.caracteristicas }}</textarea
+      >
+    </div>
+
+    <div class="mb-4">
+      <label for="imagen_url" class="block text-gray-700 text-sm font-bold mb-2"
+        >Imagen_URL:</label
+      >
+      <input
+        type="text"
+        name="imagen_url"
+        id="imagen_url"
+        value="{{ vehiculo.imagen_url }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="URL"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="combustible"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Combustible:</label
+      >
+      <input
+        type="text"
+        name="combustible"
+        id="combustible"
+        value="{{ vehiculo.combustible }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Combustible"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="kilometraje"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Kilometraje:</label
+      >
+      <input
+        type="number"
+        step="0.01"
+        name="kilometraje"
+        id="kilometraje"
+        value="{{ vehiculo.kilometraje }}"
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Kilometraje"
+      />
+    </div>
+
+    <div class="flex items-center justify-between">
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Actualizar
+      </button>
+      <a
+        href="{{ url_for('auth.admin_gestion_vehiculos') }}"
+        class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

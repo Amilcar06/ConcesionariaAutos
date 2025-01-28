@@ -2,13 +2,13 @@ from flask import Blueprint,request,url_for,redirect,flash
 from views import vehiculo_views
 from models.vehiculo_models import Vehiculo
 from config import prepair_list,index_dat
-vehiculo_bp = Blueprint('vehiculo',__name__)
 
+vehiculo_bp = Blueprint('vehiculo',__name__)
 
 @vehiculo_bp.route('/vehiculos')
 def get_vehiculos():
       vehiculos = Vehiculo.find_all()
-      return vehiculo_views.vehiculos(vehiculos=vehiculos)
+      return vehiculo_views.admin_gestion_vehiculos_view(vehiculos=vehiculos)
 
 @vehiculo_bp.route('/<int:id>')
 def get_vehiculo(id):
@@ -18,7 +18,7 @@ def get_vehiculo(id):
 @vehiculo_bp.route('/register',methods=["GET","POST"])
 def create_vehiculo():
       if(request.method == "GET"):
-            return vehiculo_views.creat_view()
+            return vehiculo_views.admin_creacion_vehiculos_view()
       try:
             id_vehiculo = request.form['idVehiculo']
             anio = request.form['anio']
@@ -51,10 +51,12 @@ def edit(id):
       precio_diario = request.form['precio_diario']
       precio_dolar = request.form['precio_dolar']
       caracteristicas = request.form['caracteristicas']
+      combustible = request.form['combustible']
+      kilometraje = request.form['kilometraje']
       vehiculo.to_string()
 
-      vehiculo.update(anio=anio,modelo=modelo,precio_diario=precio_diario,precio_dolar=precio_dolar,caracteristicas=caracteristicas)
-      flash(f"Se acutalizo correctamente el vehiculo: {id}",'success')
+      vehiculo.update(anio=anio,modelo=modelo,precio_diario=precio_diario,precio_dolar=precio_dolar,caracteristicas=caracteristicas,combustible=combustible,kilometraje=kilometraje)
+      flash(f"Se actualizo correctamente el vehiculo: {id}",'success')
       return redirect(url_for('vehiculo.get_vehiculos'))
 
 @vehiculo_bp.route("/vehiculo/<int:id>/delete")

@@ -1,0 +1,148 @@
+{% extends "/admin/base_admin.html" %}
+{% block content %}
+
+<div class="container mx-auto mt-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Agregar Nuevo Cliente</h1>
+
+  <form
+    action="{{ url_for('auth.create_cliente') }}"
+    method="POST"
+    class="bg-white shadow-md rounded-lg p-6"
+  >
+    {% if error %}
+    <div class="mb-4 text-red-500">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="mb-4">
+      <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="paterno" class="block text-sm font-medium text-gray-700">Apellido Paterno:</label>
+      <input
+        type="text"
+        id="paterno"
+        name="paterno"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="materno" class="block text-sm font-medium text-gray-700">Apellido Materno:</label>
+      <input
+        type="text"
+        id="materno"
+        name="materno"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección:</label>
+      <input
+        type="text"
+        id="direccion"
+        name="direccion"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono:</label>
+      <input
+        type="text"
+        id="telefono"
+        name="telefono"
+        required
+        pattern="\d{7,12}" 
+        title="Ingrese un número de teléfono válido (7-12 dígitos)"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-700">Fecha de Nacimiento:</label>
+      <input
+        type="date"
+        id="fecha_nacimiento"
+        name="fecha_nacimiento"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="fecha_registro" class="block text-sm font-medium text-gray-700">Fecha de Registro:</label>
+      <input
+        type="date"
+        id="fecha_registro"
+        name="fecha_registro"
+        value="{{ fecha_actual }}"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="nombreUsuario" class="block text-sm font-medium text-gray-700">Nombre de Usuario:</label>
+      <input
+          type="text"
+          id="nombreUsuario"
+          name="nombreUsuario"
+          required
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+    
+    <div class="mb-4">
+        <label for="contrasena" class="block text-sm font-medium text-gray-700">Contraseña:</label>
+        <input
+            type="password"
+            id="contrasena"
+            name="contrasena"
+            required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+    </div>
+  
+
+    <div class="flex space-x-4">
+      <button
+        type="submit"
+        class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+        onclick="return confirm('¿Estás seguro de que deseas registrar este cliente?');"
+      >
+        Registrar
+      </button>
+      <a
+        href="{{ url_for('auth.get_clientes') }}"
+        class="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

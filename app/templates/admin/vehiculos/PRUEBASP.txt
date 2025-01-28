@@ -1,0 +1,448 @@
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Panel de Administración - AutosPrime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .submenu {
+        display: none;
+      }
+      .collapsed {
+        display: none;
+      }
+      .expanded {
+        display: block;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuItems = document.querySelectorAll(".menu-item");
+        menuItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const submenu = this.nextElementSibling;
+            if (submenu.style.display === "block") {
+              submenu.style.display = "none";
+            } else {
+              submenu.style.display = "block";
+            }
+          });
+        });
+
+        const toggleButton = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("mainContent");
+
+        toggleButton.addEventListener("click", function () {
+          sidebar.classList.toggle("expanded");
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("ml-64");
+          mainContent.classList.toggle("ml-0");
+        });
+      });
+    </script>
+  </head>
+  <body class="font-roboto bg-gray-100">
+    <!-- Encabezado -->
+    <header
+      class="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md"
+    >
+      <div class="flex items-center">
+        <img
+          alt="Logo de la concesionaria AutosPrime"
+          class="mr-4"
+          height="50"
+          src="https://storage.googleapis.com/a1aa/image/rBnTfu1EG6wNNaGOGyeMWuePw5zg0Ph1KpRtYCSrENpyewcQB.jpg"
+          width="50"
+        />
+        <h1 class="text-2xl font-bold">Panel de Administración</h1>
+      </div>
+      <div class="flex items-center">
+        <p class="mr-4">Administrador: Juan Pérez</p>
+        <a
+          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          href="#"
+        >
+          Cerrar Sesión
+        </a>
+      </div>
+    </header>
+    <div class="flex">
+      <!-- Menú de Navegación Lateral -->
+      <nav id="sidebar" class="expanded bg-white shadow-md h-screen p-4 transition-all duration-300">
+        <button id="toggleSidebar" class="mb-4 text-blue-600 hover:text-blue-800">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800"
+              href="#"
+            >
+              <i class="fas fa-tachometer-alt mr-2"> </i>
+              <span class="sidebar-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-car mr-2"> </i>
+              <span class="sidebar-text">Gestión de Vehículos</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a
+                  class="text-gray-700 hover:text-gray-900"
+                  href="/agregar-vehiculo"
+                >
+                  Agregar Nuevo Vehículo
+                </a>
+              </li>
+              <li>
+                <a
+                  class="text-gray-700 hover:text-gray-900"
+                  href="/gestion-vehiculos"
+                >
+                  Ver Inventario
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-users mr-2"> </i>
+              <span class="sidebar-text">Gestión de Usuarios</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Ver Usuarios
+                </a>
+              </li>
+              <li>
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Agregar/Eliminar Usuarios
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-chart-line mr-2"> </i>
+              <span class="sidebar-text">Gestión de Finanzas</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Ver Reportes de Ventas
+                </a>
+              </li>
+              <li>
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Gestión de Pagos
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-tools mr-2"> </i>
+              <span class="sidebar-text">Gestión de Servicios</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Agregar/Editar Servicios
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-question-circle mr-2"> </i>
+              <span class="sidebar-text">Consultas y Soporte</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Ver Consultas de Clientes
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="mb-4">
+            <a
+              class="flex items-center text-blue-600 hover:text-blue-800 menu-item cursor-pointer"
+              href="#"
+            >
+              <i class="fas fa-cogs mr-2"> </i>
+              <span class="sidebar-text">Configuración del Sitio</span>
+              <i class="fas fa-chevron-down ml-auto"> </i>
+            </a>
+            <ul class="ml-6 mt-2 submenu">
+              <li class="mb-2">
+                <a class="text-gray-700 hover:text-gray-900" href="#">
+                  Ajustes Generales
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div id="mainContent" class="flex-1 p-6 ml-64 transition-all duration-300">
+        <!-- Gestión de Vehículos -->
+        <main class="flex-1 p-6">
+          <div class="container mx-auto mt-8">
+            <nav class="flex space-x-4">
+              <!-- Botón de "Consultar disponibilidad" -->
+              <a
+                class="inline-block mb-4 px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+                href="#"
+              >
+                Consultar disponibilidad
+              </a>
+              <a
+                class="inline-block mb-4 px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+                href="#"
+              >
+                Seguimiento vehículo
+              </a>
+            </nav>
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Lista de Vehículos</h1>
+            <form method="GET" class="flex items-center space-x-4 mb-4">
+              <input
+                type="search"
+                id="query"
+                name="query"
+                placeholder="Buscar Vehículo"
+                class="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="submit"
+                class="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+              >
+                Buscar
+              </button>
+            </form>
+
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                  <thead>
+                    <tr>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        ID Vehículo
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Año
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Modelo
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Precio Diario
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Precio en Dólares
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Características
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Estado Vehículo
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Marca
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Imagen
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Combustible
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Kilometraje
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Acciones
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200" id="vehicleTable">
+                    <!-- Example rows -->
+                    <tr>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        1
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        2020
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Modelo A
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        $50
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        $60
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Características A
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Disponible
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Marca A
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <img alt="Imagen del vehículo Modelo A" height="100" src="https://storage.googleapis.com/a1aa/image/uFIzf0iueaqZuEezXXaeTeLvfiXpwHemvy0r46STfdNn2KZHUA.jpg" width="100"/>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        Gasolina
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        10000 km
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <a class="text-yellow-600 hover:text-yellow-900 font-semibold px-2 py-1 rounded" href="#">
+                          Editar
+                        </a>
+                        <a class="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded" href="#" onclick="return confirm('¿Estás seguro de que deseas eliminar este vehículo?');">
+                          Eliminar
+                        </a>
+                        <a class="text-blue-600 hover:text-blue-900 font-semibold px-1 py-1 rounded" href="#">
+                          +
+                        </a>
+                      </td>
+                    </tr>
+                    <!-- Repeat for each vehicle -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+              <button
+                class="px-4 py-2 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600"
+                id="prevPage"
+              >
+                Anterior
+              </button>
+              <span class="text-gray-700" id="pageInfo"> </span>
+              <button
+                class="px-4 py-2 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600"
+                id="nextPage"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </main>
+        <script>
+          const rowsPerPage = 10;
+          let currentPage = 1;
+          const table = document.getElementById("vehicleTable");
+          const rows = table.getElementsByTagName("tr");
+          const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+          function showPage(page) {
+            for (let i = 0; i < rows.length; i++) {
+              rows[i].classList.add("hidden");
+            }
+            for (
+              let i = (page - 1) * rowsPerPage;
+              i < page * rowsPerPage && i < rows.length;
+              i++
+            ) {
+              rows[i].classList.remove("hidden");
+            }
+            document.getElementById(
+              "pageInfo"
+            ).innerText = `Página ${page} de ${totalPages}`;
+          }
+
+          document.getElementById("prevPage").addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              showPage(currentPage);
+            }
+          });
+
+          document.getElementById("nextPage").addEventListener("click", () => {
+            if (currentPage < totalPages) {
+              currentPage++;
+              showPage(currentPage);
+            }
+          });
+
+          showPage(currentPage);
+        </script>
+      </div>
+    </div>
+    <!-- Pie de Página -->
+    <footer class="bg-gray-800 text-white p-4 text-center">
+      <p>© 2023 AutosPrime. Todos los derechos reservados.</p>
+      <p>
+        <a class="text-blue-400 hover:text-blue-600" href="#">
+          Política de Privacidad
+        </a>
+        |
+        <a class="text-blue-400 hover:text-blue-600" href="#">
+          Términos y Condiciones
+        </a>
+      </p>
+    </footer>
+  </body>
+</html>

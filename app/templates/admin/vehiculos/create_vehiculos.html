@@ -1,0 +1,185 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+<main class="flex-1 p-6">
+  <div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Registro de Vehículo</h1>
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="p-6">
+        <form
+          action="{{url_for('auth.admin_creacion_vehiculos')}}"
+          method="POST"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          <!-- ID Vehículo -->
+          <div>
+            <label for="idVehiculo" class="block text-gray-700 font-semibold"
+              >ID Vehículo</label
+            >
+            <input
+              type="number"
+              id="idVehiculo"
+              name="idVehiculo"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 1"
+              required
+            />
+          </div>
+
+          <!-- Año -->
+          <div>
+            <label for="anio" class="block text-gray-700 font-semibold"
+              >Año</label
+            >
+            <input
+              type="number"
+              id="anio"
+              name="anio"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 2020"
+              required
+            />
+          </div>
+
+          <!-- Modelo -->
+          <div>
+            <label for="modelo" class="block text-gray-700 font-semibold"
+              >Modelo</label
+            >
+            <input
+              type="text"
+              id="modelo"
+              name="modelo"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: Corolla"
+              required
+            />
+          </div>
+
+          <!-- Precio Diario -->
+          <div>
+            <label for="precioDiario" class="block text-gray-700 font-semibold"
+              >Precio Diario</label
+            >
+            <input
+              type="number"
+              id="precioDiario"
+              name="precioDiario"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 55.00"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <!-- Precio en Dólares -->
+          <div>
+            <label for="precioDolar" class="block text-gray-700 font-semibold"
+              >Precio en Dólares</label
+            >
+            <input
+              type="number"
+              id="precioDolar"
+              name="precioDolar"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 15000.00"
+              step="0.01"
+              required
+            />
+          </div>
+          
+          <!-- Combustible -->
+          <div>
+            <label for="combustible" class="block text-gray-700 font-semibold"
+              >Combustible</label
+            >
+            <input
+              type="text"
+              id="combustible"
+              name="combustible"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: Corolla"
+              required
+            />
+          </div>
+          <div>
+            <label for="kilometraje" class="block text-gray-700 font-semibold"
+              >kilometraje</label
+            >
+            <input
+              type="number"
+              id="kilometraje"
+              name="kilometraje"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 0"
+              required
+            />
+          </div>
+
+          <!-- Características -->
+          <div class="md:col-span-2">
+            <label
+              for="caracteristicas"
+              class="block text-gray-700 font-semibold"
+              >Características</label
+            >
+            <textarea
+              id="caracteristicas"
+              name="caracteristicas"
+              rows="4"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: Compacto, eficiente en combustible"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Estado del Vehículo -->
+          <div>
+            <label
+              for="idEstadoVehiculo"
+              class="block text-gray-700 font-semibold"
+              >Estado del Vehículo</label
+            >
+            <input
+              type="number"
+              id="idEstadoVehiculo"
+              name="idEstadoVehiculo"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 1"
+              required
+            />
+          </div>
+
+          <!-- Marca -->
+          <div>
+            <label for="idMarca" class="block text-gray-700 font-semibold"
+              >Marca</label
+            >
+            <input
+              type="number"
+              id="idMarca"
+              name="idMarca"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ej: 1"
+              required
+            />
+          </div>
+
+          <!-- Botón de Enviar -->
+          <div class="md:col-span-2 flex justify-end space-x-4">
+            <button
+              type="submit"
+              class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+            >
+              Registrar Vehículo
+            </button>
+            <a
+              href="{{ url_for('auth.admin_gestion_vehiculos') }}"
+              class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+              >Volver</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

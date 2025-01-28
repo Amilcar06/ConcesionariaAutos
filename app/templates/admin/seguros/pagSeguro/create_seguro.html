@@ -1,0 +1,51 @@
+{% extends "/admin/base_admin.html" %}{% block content %}
+
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Detalles del Seguro</h1>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="p-6">
+            <form method="POST" action="/admin-dashboard/seg/create/seguro">
+                <div class="mb-4">
+                    <label for="id_seguro" class="block text-sm font-medium text-gray-700">Id Seguro:</label>
+                    <input type="number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="id_seguro" name="id_seguro" required>
+                </div>
+                <div class="mb-4">
+                    <label for="id_vehiculo" class="block text-sm font-medium text-gray-700">Id Vehiculo:</label>
+                    <select class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="id_vehiculo" name="id_vehiculo" required>
+                        {% for vehiculo_id in vehiculos %}
+                            <option value="{{ vehiculo_id }}">{{ vehiculo_id }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="id_aseguradora" class="block text-sm font-medium text-gray-700">Id Aseguradora:</label>
+                    <select class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="id_aseguradora" name="id_aseguradora" required>
+                        {% for aseguradora_id in aseguradoras %}
+                            <option value="{{ aseguradora_id }}">{{ aseguradora_id }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="fecha_inicio" class="block text-sm font-medium text-gray-700">Fecha Inicio:</label>
+                    <input type="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="fecha_inicio" name="fecha_inicio" required>
+                </div>
+                <div class="mb-4">
+                    <label for="fecha_fin" class="block text-sm font-medium text-gray-700">Fecha Fin:</label>
+                    <input type="date" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="fecha_fin" name="fecha_fin" required>
+                </div>
+                <div class="mb-4">
+                    <label for="tipo_seguro" class="block text-sm font-medium text-gray-700">Tipo Seguro:</label>
+                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="tipo_seguro" name="tipo_seguro" required>
+                </div>
+                <div class="mb-4">
+                    <label for="costo" class="block text-sm font-medium text-gray-700">Costo:</label>
+                    <input type="number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" id="costo" name="costo" step="0.01" required>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">Registrar</button>
+                <a href="/admin-dashboard/seg" class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

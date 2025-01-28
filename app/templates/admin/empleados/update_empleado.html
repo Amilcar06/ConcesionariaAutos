@@ -1,0 +1,85 @@
+{% extends "/admin/base_admin.html" %} {% block title %}Actualizar Empleado{%
+endblock %} {% block content %}
+<div class="container mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Actualizar Empleado</h2>
+
+  <form
+    action="{{ url_for('auth.admin_update_empleado', id=empleado[0]) }}"
+    method="POST"
+  >
+    <!-- CSRF Protection if needed -->
+
+    <!-- ID Persona -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="idPersona"
+        >ID Persona</label
+      >
+      <input
+        type="text"
+        id="idPersona"
+        name="idPersona"
+        value="{{ empleado[1] }}"
+        readonly
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+        >Email</label
+      >
+      <input
+        type="text"
+        id="email"
+        name="email"
+        value="{{ empleado[2] }}"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+
+    <!-- CI -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="ci"
+        >CI</label
+      >
+      <input
+        type="text"
+        id="ci"
+        name="ci"
+        value="{{ empleado[3] }}"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+
+    <!-- Comisión ES -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="comisionES"
+        >Comisión</label
+      >
+      <input
+        type="text"
+        id="comisionES"
+        name="comisionES"
+        value="{{ empleado[4] }}"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex items-center justify-between">
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Actualizar
+      </button>
+      <a
+        href="{{ url_for('auth.admin_empleados') }}"
+        class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+        >Cancelar</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center mb-8">Formulario de Compra</h1>
+        <p class="text-center text-gray-600 mb-6">
+            Verifica la información del vehículo y confirma tu compra. El vehículo se marcará como vendido una vez completado.
+        </p>
+        <form 
+            class="bg-white p-6 rounded shadow-lg" 
+            method="POST" 
+            onsubmit="return confirm('¿Estás seguro de que deseas confirmar esta compra?');"
+        >
+            <!-- Datos ocultos -->
+            <input type="hidden" name="id_cliente" value="{{ session['user_id'] }}" />
+            <input type="hidden" name="id_vehiculo" value="{{ vehicle.idVehiculo }}" />
+
+            <!-- Monto -->
+            <div class="mb-4">
+                <label for="monto" class="block text-gray-700 font-bold mb-2">Monto a Pagar:</label>
+                <input
+                    type="text"
+                    id="monto"
+                    name="monto"
+                    value="{{ vehicle.precio_dolar }}"
+                    readonly
+                    class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-100 text-gray-700"
+                />
+            </div>
+
+            <!-- Mensaje de error -->
+            {% if error_message %}
+            <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
+            <!-- Botón de confirmación -->
+            <div class="text-center">
+                <button 
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded transition duration-300"
+                    type="submit"
+                >
+                    Confirmar Compra
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "/admin/base_admin.html" %}{% block content %}
+
+<div class="container mx-auto mt-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Lista de Seguros</h1>
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              ID Seguro
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              ID Vehiculo
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              ID Aseguradora
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Fecha Inicio
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Fecha Fin
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Tipo Seguro
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Costo
+            </th>
+            <th
+              class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+            >
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {% for seguro in seguros %}
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[0] }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[1] }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[2] }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[3].strftime('%d-%m-%Y') }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[4].strftime('%d-%m-%Y') }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[5] }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+              {{ seguro[6] }}
+            </td>
+            <td>
+              <a
+                href="/admin-dashboard/seg/update/{{seguro[0]}}"
+                class="text-yellow-600 hover:text-yellow-900 font-semibold px-2 py-1 rounded"
+                >Editar</a
+              >
+              <a
+                href="/admin-dashboard/seg/delete/{{seguro[0]}}"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded"
+                onclick="return confirm('¿Estás seguro de que deseas eliminar este seguro?');"
+                >Eliminar</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

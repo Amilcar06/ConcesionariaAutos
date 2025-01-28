@@ -1,0 +1,54 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Seguimiento de Vehículos</h1>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="p-6">
+            <!-- Formulario para agregar seguimiento -->
+            <form action="/admin-dashboard/vehiculo/seguimiento" method="POST" class="mb-6">
+                <div class="mb-4">
+                    <label for="idVehiculo" class="block text-sm font-medium text-gray-700">ID del Vehículo</label>
+                    <input type="number" id="idVehiculo" name="idVehiculo" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="ubicacionActual" class="block text-sm font-medium text-gray-700">Ubicación Actual</label>
+                    <input type="text" id="ubicacionActual" name="ubicacionActual" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="ultimaFechaActualizacion" class="block text-sm font-medium text-gray-700">Última Fecha de Actualización</label>
+                    <input type="date" id="ultimaFechaActualizacion" name="ultimaFechaActualizacion" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">Registrar Seguimiento</button>
+                <a href="/admin-dashboard/vehiculo/gestion-vehiculos" class="inline-block ml-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 ">Volver</a>
+            </form>
+        </div>
+    </div>
+        <!-- Tabla de Seguimientos -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID Vehículo</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ubicación Actual</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Última Fecha de Actualización</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for var in segs %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ var['id'] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ var['id_vehiculo'] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ var['ubicacion_actual'] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ var['ultima_fecha'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

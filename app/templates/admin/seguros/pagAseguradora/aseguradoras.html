@@ -1,0 +1,33 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<div class="container mx-auto mt-8"> 
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Lista de Aseguradoras</h1>    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID Aseguradora</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nombre</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Contacto</th>
+                        <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for aseguradora in aseguradoras %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ aseguradora[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ aseguradora[1] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ aseguradora[2] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                            <a href="/admin-dashboard/aseg/update/{{aseguradora[0]}}" class="text-yellow-600 hover:text-yellow-900 font-semibold px-2 py-1 rounded">Editar</a>
+                            <a href="/admin-dashboard/aseg/delete/{{aseguradora[0]}}" class="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded" onclick="return confirm('¿Estás seguro de que deseas eliminar esta aseguradora?');">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

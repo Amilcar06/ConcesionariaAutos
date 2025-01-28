@@ -1,0 +1,45 @@
+{% extends '/admin/base_admin.html' %} {% block content %}
+
+<div class="container mx-auto mt-8">
+    <!-- Tabla de Transacciones -->
+    <div class="overflow-x-auto">
+        <h2 id="historial-transacciones" class="text-2xl font-bold text-gray-800 mb-6">Historial de Transacciones</h2>
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">ID Transacción</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">ID Cliente</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Tipo de Transacción</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Fecha</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Costo</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">ID Tipo Cambio</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for transaccion in transacciones %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">{{ transaccion.id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">{{ transaccion.id_cliente }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">{{ transaccion.tipo_transaccion }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">{{ transaccion.fecha_transaccion }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">${{ transaccion.costo }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">{{ transaccion.id_tipo_cambio }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                        <a href="{{ url_for('auth.update_transaccion_view', id_transaccion=transaccion.id) }}" 
+                           class="text-yellow-600 hover:text-yellow-900 font-semibold px-2 py-1 rounded">
+                            Editar
+                        </a>
+                        <a href="{{ url_for('auth.delete_transaccion_view', id_transaccion=transaccion.id) }}" 
+                           class="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded" 
+                           onclick="return confirm('¿Estás seguro de que deseas eliminar esta transacción?');">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
