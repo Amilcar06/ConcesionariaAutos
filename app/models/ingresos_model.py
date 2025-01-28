@@ -2,20 +2,26 @@ from app.database import db
 import random
 db_connection = db()
 
+import os
 from mysql.connector import pooling
 
 db_config = {
-    'user': 'root',
-    'password': '12345678',
-    'host': 'localhost',
-    'database': 'concesionaria_Autos',
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'host': os.getenv('DB_HOST'),
+    'database': os.getenv('DB_NAME'),
+    'port': int(os.getenv('DB_PORT', 3306))  # Usa 3306 por defecto si no está definido
 }
 
-connection_pool = pooling.MySQLConnectionPool(
-    pool_name="mypool",
-    pool_size=5,
-    **db_config
-)
+try:
+    connection_pool = pooling.MySQLConnectionPool(
+        pool_name="mypool",
+        pool_size=5,
+        **db_config
+    )
+    print("Conexión exitosa a la base de datos")
+except Exception as e:
+    print(f"Error al conectar a la base de datos: {e}")
 
 def get_connection():
     return connection_pool.get_connection()
