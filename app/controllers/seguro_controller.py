@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from views import seguro_view
+from app.views import seguro_view
 from app.models.seguro_models import Seguro
 from app.models.vehiculo_models import Vehiculo
 from app.models.aseguradora_models import Aseguradora

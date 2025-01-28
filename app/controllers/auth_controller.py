@@ -1,7 +1,7 @@
 from datetime import datetime
-from database import db 
+from app.database import db 
 from flask import Blueprint, request, redirect, session, url_for, flash, render_template
-from config import index_dat, prepair_list
+from app.config import index_dat, prepair_list
 from app.models.vehiculo_models import Vehiculo
 from app.models.empleado_models import EmpleadoPersona
 from app.models.cliente_models import ClientePersona
@@ -14,7 +14,7 @@ from app.models.persona_models import Persona
 from app.models.ingresos_model import TipoCambio, Transaccion
 import calendar
 
-from views import auth_view
+from app.views import auth_view
 
 auth_bp = Blueprint('auth', __name__)
 

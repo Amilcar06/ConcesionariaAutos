@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, url_for, flash
-from views import auth_view
+from app.views import auth_view
 from app.models.empleado_models import EmpleadoPersona
 from datetime import datetime
 

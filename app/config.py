@@ -1,4 +1,4 @@
-from models.vehiculo_models import Vehiculo
+from app.models.vehiculo_models import Vehiculo
 from collections import defaultdict
 
 

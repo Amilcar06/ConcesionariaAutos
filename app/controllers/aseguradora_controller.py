@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect, url_for
-from views import aseguradora_view
-from models.aseguradora_models import Aseguradora
+from app.views import aseguradora_view
+from app.models.aseguradora_models import Aseguradora
 
 aseguradora_bp = Blueprint('aseguradora', __name__)
 aseguradora_model = Aseguradora()  # Crear una instancia de Aseguradora
