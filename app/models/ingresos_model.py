@@ -3,6 +3,7 @@ import random
 db_connection = db()
 
 import os
+import mysql.connector
 from mysql.connector import pooling
 
 db_config = {
