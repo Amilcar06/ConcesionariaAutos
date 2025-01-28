@@ -1,6 +1,6 @@
 from flask import redirect, render_template, url_for
-from models.vehiculo_models import Vehiculo
-from models.aseguradora_models import Aseguradora
+from app.models.vehiculo_models import Vehiculo
+from app.models.aseguradora_models import Aseguradora
 
 def create_view():
     vehiculos = Vehiculo.find_all_ids()

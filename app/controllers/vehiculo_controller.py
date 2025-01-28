@@ -1,6 +1,6 @@
 from flask import Blueprint,request,url_for,redirect,flash
 from views import vehiculo_views
-from models.vehiculo_models import Vehiculo
+from app.models.vehiculo_models import Vehiculo
 from config import prepair_list,index_dat
 
 vehiculo_bp = Blueprint('vehiculo',__name__)

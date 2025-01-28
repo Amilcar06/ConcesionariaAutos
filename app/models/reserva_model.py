@@ -1,6 +1,5 @@
-import cx_Oracle
 from datetime import datetime
-from database import db as db_connection
+from app.database import db as db_connection
 class Reserva:
     def __init__(self, id_reserva, id_cliente, id_empleado, fecha_inicio, fecha_fin, contrato=None):
         self.id_reserva = id_reserva

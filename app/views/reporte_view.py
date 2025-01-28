@@ -1,5 +1,5 @@
 from flask import redirect, render_template, url_for
-from models.reporte_models import Reporte
+from app.models.reporte_models import Reporte
 
 def reporte_1(reporte):
     return render_template('/admin/reportes/reporte_1.html', reportes=reporte)

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from models.ingresos_model import TipoCambio, Transaccion
+from app.models.ingresos_model import TipoCambio, Transaccion
 from datetime import datetime
 import calendar
 

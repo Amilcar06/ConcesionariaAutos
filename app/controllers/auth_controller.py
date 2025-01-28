@@ -2,16 +2,16 @@ from datetime import datetime
 from database import db 
 from flask import Blueprint, request, redirect, session, url_for, flash, render_template
 from config import index_dat, prepair_list
-from models.vehiculo_models import Vehiculo
-from models.empleado_models import EmpleadoPersona
-from models.cliente_models import ClientePersona
-from models.reporte_models import Reporte
-from models.seguro_models import Seguro
-from models.vehiculo_models import Vehiculo
-from models.aseguradora_models import Aseguradora
-from models.user_models import User
-from models.persona_models import Persona
-from models.ingresos_model import TipoCambio, Transaccion
+from app.models.vehiculo_models import Vehiculo
+from app.models.empleado_models import EmpleadoPersona
+from app.models.cliente_models import ClientePersona
+from app.models.reporte_models import Reporte
+from app.models.seguro_models import Seguro
+from app.models.vehiculo_models import Vehiculo
+from app.models.aseguradora_models import Aseguradora
+from app.models.user_models import User
+from app.models.persona_models import Persona
+from app.models.ingresos_model import TipoCambio, Transaccion
 import calendar
 
 from views import auth_view

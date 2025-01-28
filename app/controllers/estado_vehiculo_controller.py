@@ -1,6 +1,6 @@
 from flask import Blueprint,request,redirect,url_for,flash
-from models.estado_vehiculo_model import EstadoVehiculo
-from models.vehiculo_models import Vehiculo
+from app.models.estado_vehiculo_model import EstadoVehiculo
+from app.models.vehiculo_models import Vehiculo
 from views import estado_vehiculo_views
 
 est_vehiculo_bp = Blueprint('est_vehiculo',__name__)

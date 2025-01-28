@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from views import reporte_view
-from models.reporte_models import Reporte
+from app.models.reporte_models import Reporte
 
 reporte_bp = Blueprint('reporte', __name__)
 reporte_model = Reporte() 

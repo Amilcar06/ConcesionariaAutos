@@ -1,6 +1,6 @@
-from database import db
-from .estado_vehiculo_model import EstadoVehiculo
-from .marca import Marca
+from app.database import db
+from app.models.estado_vehiculo_model import EstadoVehiculo
+from app.models.marca import Marca
 db_conecction = db()
 
 class Vehiculo:

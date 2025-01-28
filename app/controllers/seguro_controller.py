@@ -1,9 +1,9 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from views import seguro_view
-from models.seguro_models import Seguro
-from models.vehiculo_models import Vehiculo
-from models.aseguradora_models import Aseguradora
+from app.models.seguro_models import Seguro
+from app.models.vehiculo_models import Vehiculo
+from app.models.aseguradora_models import Aseguradora
 
 seguro_bp = Blueprint('seguro', __name__)
 seguro_model = Seguro()  # Create an instance of Seguro

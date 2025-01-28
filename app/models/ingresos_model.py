@@ -1,4 +1,4 @@
-from database import db
+from app.database import db
 import random
 db_connection = db()
 

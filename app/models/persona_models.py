@@ -1,4 +1,4 @@
-from database import db
+from app.database import db
 
 class Persona:
     def __init__(self, id=None, nombre=None, paterno=None, materno=None, direccion=None, telefono=None, email=None, fecha_nacimiento=None):

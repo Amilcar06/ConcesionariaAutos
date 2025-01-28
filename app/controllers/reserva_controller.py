@@ -1,5 +1,5 @@
 from flask import Blueprint,request,render_template,flash,redirect,url_for
-from models.reserva_model import Reserva
+from app.models.reserva_model import Reserva
 from datetime import datetime
 reserva_bp = Blueprint('reserva',__name__)
 

@@ -1,4 +1,4 @@
-from database import db
+from app.database import db
 
 class EstadoVehiculo:
     def __init__(self, id_estado_vehiculo, nombre_estado, descripcion) -> None:

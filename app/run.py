@@ -1,8 +1,8 @@
 from flask import Flask, flash
-from controllers import header_controller, auth_controller
-from controllers import vehiculo_controller, estado_vehiculo_controller, reserva_controller
-from controllers import ingresos_controller, seguro_controller, aseguradora_controller, routes
-from controllers import empleado_controller, reporte_controller
+from app.controllers import header_controller, auth_controller
+from app.controllers import vehiculo_controller, estado_vehiculo_controller, reserva_controller
+from app.controllers import ingresos_controller, seguro_controller, aseguradora_controller, routes
+from app.controllers import empleado_controller, reporte_controller
 
 app = Flask(__name__)
 

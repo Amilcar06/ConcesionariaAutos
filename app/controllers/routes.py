@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, make_response
-from models.persona_models import Persona
+from app.models.persona_models import Persona
 
 main = Blueprint('main', __name__)
 

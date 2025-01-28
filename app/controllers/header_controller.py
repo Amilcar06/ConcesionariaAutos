@@ -1,7 +1,7 @@
 import datetime
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
-from models.ingresos_model import Transaccion
-from models.vehiculo_models import Vehiculo
+from app.models.ingresos_model import Transaccion
+from app.models.vehiculo_models import Vehiculo
 from views import header_view
 
 header_bp = Blueprint('header', __name__)

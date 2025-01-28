@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect, url_for, flash
 from views import auth_view
-from models.empleado_models import EmpleadoPersona
+from app.models.empleado_models import EmpleadoPersona
 from datetime import datetime
 
 empleado_persona_bp = Blueprint('empleado_persona', __name__)

@@ -1,6 +1,6 @@
 import mysql.connector
 import bcrypt
-from database import db
+from app.database import db
 
 class User:
     def __init__(self, username, password, role=None, user_id=None):
