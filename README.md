@@ -1,12 +1,10 @@
-¡Claro! Vamos a crear descripciones detalladas para cada sección que quieras incluir en tu `README.md`. Aquí tienes una estructura organizada con las descripciones que puedes usar y personalizar según tu proyecto:
-
----
-
 ### **README.md**
 ```markdown
 # Concesionario de Autos
 
-Este proyecto es una aplicación web de tipo CRUD (Create, Read, Update, Delete) diseñada para gestionar un concesionario de vehículos. La aplicación permite realizar operaciones como registro de vehículos, gestión de alquileres y ventas, y consulta de transacciones, utilizando Flask como framework backend y MySQL como base de datos.
+Este proyecto es una aplicación web de tipo CRUD (Create, Read, Update, Delete) diseñada para
+gestionar un concesionario de vehículos. La aplicación permite realizar operaciones como registro de vehículos,
+gestión de alquileres y ventas, y consulta de transacciones, utilizando Flask como framework backend y MySQL como base de datos.
 
 ## Funcionalidades
 
