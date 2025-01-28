@@ -3,30 +3,6 @@ from app.models.estado_vehiculo_model import EstadoVehiculo
 from app.models.marca import Marca
 db_conecction = db()
 
-import os
-from mysql.connector import pooling
-
-db_config = {
-    'user': os.getenv('DB_USER'),
-    'password': os.getenv('DB_PASSWORD'),
-    'host': os.getenv('DB_HOST'),
-    'database': os.getenv('DB_NAME'),
-    'port': int(os.getenv('DB_PORT', 3306))  # Usa 3306 por defecto si no está definido
-}
-
-try:
-    connection_pool = pooling.MySQLConnectionPool(
-        pool_name="mypool",
-        pool_size=5,
-        **db_config
-    )
-    print("Conexión exitosa a la base de datos")
-except Exception as e:
-    print(f"Error al conectar a la base de datos: {e}")
-
-def get_connection():
-    return connection_pool.get_connection()
-
 class Vehiculo:
     def __init__(self, id_vehiculo, anio, modelo, precio_diario, precio_dolar, caracteristicas, id_estado_vehiculo, id_marca, imagen_url, combustible, kilometraje):
         self.id_vehiculo = id_vehiculo
@@ -74,8 +50,7 @@ class Vehiculo:
 
     @staticmethod
     def find_all():
-        connection = get_connection()
-        cursor = connection.cursor()
+        cursor = db_conecction.cursor()
         cursor.execute("SELECT * FROM VEHICULO ORDER BY idVehiculo")
         vehiculos = cursor.fetchall()
         list_vehiculo = [Vehiculo(*vh) for vh in vehiculos]
